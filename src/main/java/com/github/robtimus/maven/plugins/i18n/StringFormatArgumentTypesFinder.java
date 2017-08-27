@@ -32,7 +32,7 @@ final class StringFormatArgumentTypesFinder implements ArgumentTypesFinder {
 
     // %[argument_index$][flags][width][.precision][t]conversion
     private static final String FORMAT_SPECIFIER = "%(\\d+\\$)?([-#+ 0,(\\<]*)?(\\d+)?(\\.\\d+)?([tT])?([a-zA-Z%])"; //$NON-NLS-1$
-    private static Pattern FORMAT_SPECIFIER_PATTERN = Pattern.compile(FORMAT_SPECIFIER);
+    private static final Pattern FORMAT_SPECIFIER_PATTERN = Pattern.compile(FORMAT_SPECIFIER);
 
     @Override
     public List<ArgumentTypes> findArgumentTypes(String formatOrPattern) {
