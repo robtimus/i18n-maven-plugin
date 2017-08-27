@@ -1,0 +1,121 @@
+#set ($h = "#")
+#set ($d = "$")
+<head>
+  <title>Add a license</title>
+</head>
+$h$h Add a license
+
+Add a license at the top of the generated file by setting the `licenseText` configuration element.
+
+The license text can contain the following place holders:
+
+* `${d}{fileName}` for the name of the generated class file.
+* `${d}{copyrightYear}` for the copy right year. This defaults to the current year, and can be overridden using the `licenseCopyrightYear` configuration element.
+* `${d}{copyrightHolder}` for the copy right holder. This defaults to the current user (as determined by the `user.name` system property), and can be overridden using the `licenseCopyrightHolder` configuration element.
+
+$h$h$h Add a pre-defined license
+
+Fill in one of the following values to get a pre-defined license. These all include the copy right year and owner.
+
+* [Apache-2.0](https://opensource.org/licenses/Apache-2.0): the Apache License 2.0
+* [BSD-2-Clause](https://opensource.org/licenses/BSD-2-Clause): the 2-Clause BSD License / FreeBSD License / Simplified BSD License
+* [EPL-1.0](https://opensource.org/licenses/EPL-1.0): the Eclipse Public License
+* [GPL-2.0](https://opensource.org/licenses/GPL-2.0): the GNU General Public License version 2
+* [GPL-3.0](https://opensource.org/licenses/GPL-3.0): the GNU General Public License version 3
+* [LGPL-2.0](https://opensource.org/licenses/LGPL-2.0): the GNU Library General Public License version 2
+* [LGPL-2.1](https://opensource.org/licenses/LGPL-2.1): the GNU Lesser General Public License version 2.1
+* [MIT](https://opensource.org/licenses/MIT): the MIT License
+* [MPL-2.0](https://opensource.org/licenses/MPL-2.0): the Mozilla Public License 2.0
+
+
+    <project>
+      ...
+      <build>
+        <plugins>
+          ...
+          <plugin>
+            <groupId>com.github.robtimus</groupId>
+            <artifactId>i18n-maven-plugin</artifactId>
+            <version>${project.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>generate</goal>
+                </goals>
+                <configuration>
+                  <bundleName>com.foo.bar.i18n</bundleName>
+                  <licenseText>Apache-2.0</licenseText>
+                  <licenseCopyrightHolder>Acme</licenseCopyrightHolder>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          ...
+        </plugins>
+      </build>
+      ...
+    </project>
+
+$h$h$h Add a license from file or URL
+
+Fill in the absolute or relative path or a URL to a file containing the license text to use its content.
+
+    <project>
+      ...
+      <build>
+        <plugins>
+          ...
+          <plugin>
+            <groupId>com.github.robtimus</groupId>
+            <artifactId>i18n-maven-plugin</artifactId>
+            <version>${project.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>generate</goal>
+                </goals>
+                <configuration>
+                  <bundleName>com.foo.bar.i18n</bundleName>
+                  <licenseText>${d}{project.basedir}/src/main/resources/license</licenseText>
+                  <licenseCopyrightHolder>Acme</licenseCopyrightHolder>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          ...
+        </plugins>
+      </build>
+      ...
+    </project>
+
+$h$h$h Add a literal license text
+
+Fill in a literal license text that is not one of the pre-defined licenses, a file path or a URL.
+
+    <project>
+      ...
+      <build>
+        <plugins>
+          ...
+          <plugin>
+            <groupId>com.github.robtimus</groupId>
+            <artifactId>i18n-maven-plugin</artifactId>
+            <version>${project.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>generate</goal>
+                </goals>
+                <configuration>
+                  <bundleName>com.foo.bar.i18n</bundleName>
+                  <licenseText>Copyright ${d}{copyrightYear} ${d}{copyrightHolder}</licenseText>
+                  <licenseCopyrightHolder>Acme</licenseCopyrightHolder>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          ...
+        </plugins>
+      </build>
+      ...
+    </project>

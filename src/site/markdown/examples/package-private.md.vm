@@ -1,0 +1,34 @@
+#set ($h = "#")
+<head>
+  <title>Make generated classes package-private</title>
+</head>
+$h$h Make generated classes package-private
+
+By default, generated classes (and methods) are public. Make them package-private by setting the `publicVisibility` configuration element to `false`.
+
+    <project>
+      ...
+      <build>
+        <plugins>
+          ...
+          <plugin>
+            <groupId>com.github.robtimus</groupId>
+            <artifactId>i18n-maven-plugin</artifactId>
+            <version>${project.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>generate</goal>
+                </goals>
+                <configuration>
+                  <bundleName>com.foo.bar.i18n</bundleName>
+                  <publicVisibility>false</publicVisibility>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          ...
+        </plugins>
+      </build>
+      ...
+    </project>
