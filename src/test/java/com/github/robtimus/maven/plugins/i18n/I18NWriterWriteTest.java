@@ -236,7 +236,7 @@ public class I18NWriterWriteTest {
         assertModifiers(cls.getModifiers(), cls.getDeclaringClass() != null, true);
 
         for (Field field : cls.getDeclaredFields()) {
-            if (!isSystemField(field)) {
+            if (!isSystemField(field) && !field.isSynthetic()) {
                 // public static final if cls is the root class, otherwise public final
                 assertModifiers(field.getModifiers(), cls.getDeclaringClass() == null, true);
 
@@ -251,21 +251,32 @@ public class I18NWriterWriteTest {
         Method[] methods = cls.getDeclaredMethods();
         if (bundle.getProperty(path) != null) {
             // a leaf node, must have 2 get methods
-            assertEquals(2, methods.length);
+            int methodCount = 0;
             for (Method method : methods) {
-                assertEquals("get", method.getName());
-                assertEquals(String.class, method.getReturnType());
-                // public only
-                assertModifiers(method.getModifiers(), false, false);
+                if (!method.isSynthetic()) {
+                    methodCount++;
 
-                method.setAccessible(true);
-                validateMethod(method, instance, path);
+                    assertEquals("get", method.getName());
+                    assertEquals(String.class, method.getReturnType());
+                    // public only
+                    assertModifiers(method.getModifiers(), false, false);
 
-                remainingProperties.remove(path);
+                    method.setAccessible(true);
+                    validateMethod(method, instance, path);
+
+                    remainingProperties.remove(path);
+                }
             }
+            assertEquals(2, methodCount);
         } else if (cls.getDeclaringClass() != null) {
             // a non-leaf node, must have no methods
-            assertEquals(0, methods.length);
+            int methodCount = 0;
+            for (Method method : methods) {
+                if (!method.isSynthetic()) {
+                    methodCount++;
+                }
+            }
+            assertEquals(0, methodCount);
         }
         // else the root cls, don't validate its methods
     }
