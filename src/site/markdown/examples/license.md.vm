@@ -3,6 +3,7 @@
 <head>
   <title>Add a license</title>
 </head>
+
 $h$h Add a license
 
 Add a license at the top of the generated file by setting the `licenseText` configuration element.

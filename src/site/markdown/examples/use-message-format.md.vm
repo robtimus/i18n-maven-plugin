@@ -2,6 +2,7 @@
 <head>
   <title>Use MessageFormat for formatting messages</title>
 </head>
+
 $h$h Use MessageFormat for formatting messages
 
 By default, [String.format](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#format-java.lang.String-java.lang.Object...-) is used to format messages with arguments. Use [MessageFormat](https://docs.oracle.com/javase/8/docs/api/java/text/MessageFormat.html) instead by setting the `useMessageFormat` configuration element to `true`.

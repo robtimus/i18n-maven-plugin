@@ -2,6 +2,7 @@
 <head>
   <title>Make generated classes package-private</title>
 </head>
+
 $h$h Make generated classes package-private
 
 By default, generated classes (and methods) are public. Make them package-private by setting the `publicVisibility` configuration element to `false`.

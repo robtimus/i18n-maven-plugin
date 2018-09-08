@@ -2,6 +2,7 @@
 <head>
   <title>Suppress warnings</title>
 </head>
+
 $h$h Suppress warnings
 
 Specify the warnings to [supress](https://docs.oracle.com/javase/8/docs/api/java/lang/SuppressWarnings.html) by setting these in the `suppressWarnings` configuration element. This can be done using a comma separated list or as nested `suppressWarning` configuration elements.

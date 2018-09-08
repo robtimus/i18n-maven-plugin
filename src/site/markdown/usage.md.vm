@@ -2,6 +2,7 @@
 <head>
   <title>Usage</title>
 </head>
+
 $h$h Usage
 
 $h$h$h Generating an I18N class from an I18N resource file

@@ -2,6 +2,7 @@
 <head>
   <title>Specify a custom class name</title>
 </head>
+
 $h$h Specify a custom class name
 
 By default, the class name will be based on the I18N bundle file name. Specify a custom class name by setting the fully qualified class name in the `className` configuration element.
