@@ -140,7 +140,7 @@ public class StringFormatArgumentTypesFinderTest {
         assertEquals(1, argumentTypesList.size());
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
                 int.class, Integer.class, long.class, Long.class, BigInteger.class));
     }
 
@@ -153,7 +153,7 @@ public class StringFormatArgumentTypesFinderTest {
         assertEquals(1, argumentTypesList.size());
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
                 int.class, Integer.class, long.class, Long.class, BigInteger.class));
     }
 
@@ -166,7 +166,7 @@ public class StringFormatArgumentTypesFinderTest {
         assertEquals(1, argumentTypesList.size());
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
                 int.class, Integer.class, long.class, Long.class, BigInteger.class));
     }
 
@@ -179,7 +179,7 @@ public class StringFormatArgumentTypesFinderTest {
         assertEquals(1, argumentTypesList.size());
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
                 int.class, Integer.class, long.class, Long.class, BigInteger.class));
     }
 
@@ -193,7 +193,7 @@ public class StringFormatArgumentTypesFinderTest {
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
         assertThat(argumentTypes.getTypes(),
-                Matchers.<Class<?>> containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
+                Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
     }
 
     @Test
@@ -206,7 +206,7 @@ public class StringFormatArgumentTypesFinderTest {
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
         assertThat(argumentTypes.getTypes(),
-                Matchers.<Class<?>> containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
+                Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
     }
 
     @Test
@@ -219,7 +219,7 @@ public class StringFormatArgumentTypesFinderTest {
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
         assertThat(argumentTypes.getTypes(),
-                Matchers.<Class<?>> containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
+                Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
     }
 
     @Test
@@ -232,7 +232,7 @@ public class StringFormatArgumentTypesFinderTest {
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
         assertThat(argumentTypes.getTypes(),
-                Matchers.<Class<?>> containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
+                Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
     }
 
     @Test
@@ -245,7 +245,7 @@ public class StringFormatArgumentTypesFinderTest {
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
         assertThat(argumentTypes.getTypes(),
-                Matchers.<Class<?>> containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
+                Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
     }
 
     @Test
@@ -257,7 +257,7 @@ public class StringFormatArgumentTypesFinderTest {
         assertEquals(1, argumentTypesList.size());
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(float.class, Float.class, double.class, Double.class));
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class));
     }
 
     @Test
@@ -269,7 +269,7 @@ public class StringFormatArgumentTypesFinderTest {
         assertEquals(1, argumentTypesList.size());
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(float.class, Float.class, double.class, Double.class));
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class));
     }
 
     @Test
@@ -281,7 +281,7 @@ public class StringFormatArgumentTypesFinderTest {
         assertEquals(1, argumentTypesList.size());
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(long.class, Long.class, Date.class, Calendar.class));
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(long.class, Long.class, Date.class, Calendar.class));
     }
 
     @Test
@@ -293,7 +293,7 @@ public class StringFormatArgumentTypesFinderTest {
         assertEquals(1, argumentTypesList.size());
 
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(long.class, Long.class, Date.class, Calendar.class));
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(long.class, Long.class, Date.class, Calendar.class));
     }
 
     @Test
@@ -324,23 +324,23 @@ public class StringFormatArgumentTypesFinderTest {
 
         // %tF and %<tT
         ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(long.class, Long.class, Date.class, Calendar.class));
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(long.class, Long.class, Date.class, Calendar.class));
 
         // %tF, %<tT and %2$b - only Object as common match
         argumentTypes = argumentTypesList.get(1);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(Object.class));
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(Object.class));
 
         // %s and %<s
         argumentTypes = argumentTypesList.get(2);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(Object.class));
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(Object.class));
 
         // %s and %<d - only Object as common match
         argumentTypes = argumentTypesList.get(3);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(Object.class));
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(Object.class));
 
         // %d, %<d and %<d
         argumentTypes = argumentTypesList.get(4);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>> containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
+        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
                 int.class, Integer.class, long.class, Long.class, BigInteger.class));
     }
 }

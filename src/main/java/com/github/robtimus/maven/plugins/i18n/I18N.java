@@ -256,7 +256,7 @@ final class I18N {
 
         List<ArgumentTypes> findArgumentTypes(String formatOrPattern);
 
-        public final class ArgumentTypes {
+        final class ArgumentTypes {
             private final Set<Class<?>> types = new LinkedHashSet<>();
 
             ArgumentTypes(Class<?>... types) {
