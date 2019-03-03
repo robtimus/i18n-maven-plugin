@@ -28,34 +28,35 @@ Fill in one of the following values to get a pre-defined license. These all incl
 * [MIT](https://opensource.org/licenses/MIT): the MIT License
 * [MPL-2.0](https://opensource.org/licenses/MPL-2.0): the Mozilla Public License 2.0
 
-
-    <project>
+```
+<project>
+  ...
+  <build>
+    <plugins>
       ...
-      <build>
-        <plugins>
-          ...
-          <plugin>
-            <groupId>com.github.robtimus</groupId>
-            <artifactId>i18n-maven-plugin</artifactId>
-            <version>${project.version}</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>generate</goal>
-                </goals>
-                <configuration>
-                  <bundleName>com.foo.bar.i18n</bundleName>
-                  <licenseText>Apache-2.0</licenseText>
-                  <licenseCopyrightHolder>Acme</licenseCopyrightHolder>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          ...
-        </plugins>
-      </build>
+      <plugin>
+        <groupId>com.github.robtimus</groupId>
+        <artifactId>i18n-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <bundleName>com.foo.bar.i18n</bundleName>
+              <licenseText>Apache-2.0</licenseText>
+              <licenseCopyrightHolder>Acme</licenseCopyrightHolder>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       ...
-    </project>
+    </plugins>
+  </build>
+      ...
+</project>
+```
 
 $h$h$h Add a license from file or URL
 
