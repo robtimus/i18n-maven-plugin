@@ -79,7 +79,7 @@
     <version.commons-lang>2.6</version.commons-lang>
     <version.hamcrest>1.3</version.hamcrest>
     <version.junit>4.12</version.junit>
-    <version.maven>3.0</version.maven>
+    <version.maven>3.5.0</version.maven>
     <version.maven-annotations>3.5</version.maven-annotations>
     <version.maven-plugin>3.5</version.maven-plugin>
     <version.mockito>1.10.19</version.mockito>
@@ -216,7 +216,7 @@
                     </goals>
                   </pluginExecutionFilter>
                   <action>
-                    <ignore />
+                    <ignore/>
                   </action>
                 </pluginExecution>
               </pluginExecutions>
@@ -311,7 +311,7 @@
               <target>
                 <copy todir="${project.build.directory}/apidocs/META-INF">
                   <fileset dir="${project.basedir}">
-                    <include name="LICENSE.txt" />
+                    <include name="LICENSE.txt"/>
                   </fileset>
                 </copy>
               </target>
