@@ -463,6 +463,7 @@
                   <className>com.github.robtimus.maven.plugins.i18n.Messages</className>
                   <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
                   <licenseText>Apache-2.0</licenseText>
+                  <licenseCopyrightYear>2017</licenseCopyrightYear>
                   <licenseCopyrightHolder>Rob Spoor</licenseCopyrightHolder>
                   <publicVisibility>false</publicVisibility>
                   <suppressWarnings>nls</suppressWarnings>
