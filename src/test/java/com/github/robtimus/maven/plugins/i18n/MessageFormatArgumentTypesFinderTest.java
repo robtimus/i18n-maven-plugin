@@ -17,10 +17,10 @@
 
 package com.github.robtimus.maven.plugins.i18n;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Test;

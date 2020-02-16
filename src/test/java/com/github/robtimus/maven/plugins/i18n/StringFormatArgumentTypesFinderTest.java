@@ -17,8 +17,8 @@
 
 package com.github.robtimus.maven.plugins.i18n;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
