@@ -19,23 +19,7 @@
   xmlns="https://maven.apache.org/xsd/decoration-1.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="https://maven.apache.org/xsd/decoration-1.7.0.xsd https://maven.apache.org/xsd/decoration-1.7.0.xsd">
 
-  <version position="left" />
-  <publishDate position="left" />
-
-  <skin>
-    <groupId>org.apache.maven.skins</groupId>
-    <artifactId>maven-fluido-skin</artifactId>
-    <version>1.7</version>
-  </skin>
-
   <body>
-    <!-- Workaround to get pretty-printing enabled again. See https://plus.google.com/+clementescoffier/posts/8MQM8Y4CTeu -->
-    <head><![CDATA[<script type="text/javascript">
-  $(document).ready(function () {
-    $(".source").addClass("prettyprint");
-    prettyPrint();
-  });
-</script>]]></head>
     <menu name="Overview">
       <item name="Introduction" href="index.html" />
       <item name="Goals" href="plugin-info.html" />
@@ -49,12 +33,5 @@
       <item name="Suppress warnings" href="examples/suppress-warnings.html" />
       <item name="Use MessageFormat" href="examples/use-message-format.html" />
     </menu>
-    <menu ref="reports" />
   </body>
-
-  <custom>
-    <fluidoSkin>
-      <sideBarEnabled>true</sideBarEnabled>
-    </fluidoSkin>
-  </custom>
 </project>
