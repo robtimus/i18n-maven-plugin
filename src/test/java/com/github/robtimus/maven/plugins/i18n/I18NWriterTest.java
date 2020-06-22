@@ -98,25 +98,25 @@ public class I18NWriterTest {
 
     @Test
     public void testGetLicenseCopyrightHolder() {
-      I18N.Writer writer = createWriter(new License(null, null, "Test User"));
+        I18N.Writer writer = createWriter(new License(null, null, "Test User"));
 
-      assertEquals("Test User", writer.getLicenseCopyrightHolder());
+        assertEquals("Test User", writer.getLicenseCopyrightHolder());
 
-      writer = createWriter(new License(null, null, null));
+        writer = createWriter(new License(null, null, null));
 
-      assertEquals(System.getProperty("user.name"), writer.getLicenseCopyrightHolder());
+        assertEquals(System.getProperty("user.name"), writer.getLicenseCopyrightHolder());
     }
 
     @Test
     public void testGetLicenseCopyrightYear() {
-      I18N.Writer writer = createWriter(new License(null, "2016", null));
+        I18N.Writer writer = createWriter(new License(null, "2016", null));
 
-      assertEquals("2016", writer.getLicenseCopyrightYear());
+        assertEquals("2016", writer.getLicenseCopyrightYear());
 
-      writer = createWriter(new License(null, null, null));
+        writer = createWriter(new License(null, null, null));
 
-      int year = Calendar.getInstance().get(Calendar.YEAR);
-      assertEquals(Integer.toString(year), writer.getLicenseCopyrightYear());
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        assertEquals(Integer.toString(year), writer.getLicenseCopyrightYear());
     }
 
     private I18N.Writer createWriter(License license) {
