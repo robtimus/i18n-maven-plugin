@@ -68,11 +68,11 @@
   <properties>
     <version.commons-collections>3.2.2</version.commons-collections>
     <version.commons-lang>2.6</version.commons-lang>
-    <version.maven>3.5.0</version.maven>
-    <version.maven-annotations>3.5</version.maven-annotations>
+    <version.maven>3.6.0</version.maven>
+    <version.maven-annotations>3.6.0</version.maven-annotations>
     <version.velocity>1.7</version.velocity>
 
-    <version.plugin.maven>3.5</version.plugin.maven>
+    <version.plugin.maven>3.6.0</version.plugin.maven>
 
     <robtimus.site-index.generate>false</robtimus.site-index.generate>
   </properties>
