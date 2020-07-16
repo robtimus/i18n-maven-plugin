@@ -27,7 +27,7 @@
   </parent>
 
   <artifactId>i18n-maven-plugin</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>2.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
   <name>I18N Maven Plugin</name>
@@ -66,14 +66,10 @@
   </issueManagement>
 
   <properties>
-    <version.java>1.7</version.java>
-
     <version.commons-collections>3.2.2</version.commons-collections>
     <version.commons-lang>2.6</version.commons-lang>
-    <version.junit>4.13</version.junit>
-    <version.maven>3.0</version.maven>
+    <version.maven>3.5.0</version.maven>
     <version.maven-annotations>3.5</version.maven-annotations>
-    <version.mockito>2.28.2</version.mockito>
     <version.velocity>1.7</version.velocity>
 
     <version.plugin.maven>3.5</version.plugin.maven>
@@ -120,9 +116,8 @@
     </dependency>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${version.junit}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
 

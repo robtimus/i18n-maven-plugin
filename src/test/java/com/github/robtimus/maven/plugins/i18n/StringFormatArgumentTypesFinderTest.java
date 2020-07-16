@@ -18,7 +18,7 @@
 package com.github.robtimus.maven.plugins.i18n;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
@@ -26,17 +26,17 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import com.github.robtimus.maven.plugins.i18n.I18N.ArgumentTypesFinder;
 import com.github.robtimus.maven.plugins.i18n.I18N.ArgumentTypesFinder.ArgumentTypes;
 
-@SuppressWarnings({ "nls", "javadoc" })
-public class StringFormatArgumentTypesFinderTest {
+@SuppressWarnings("nls")
+class StringFormatArgumentTypesFinderTest {
 
     private final ArgumentTypesFinder argumentTypesFinder = new StringFormatArgumentTypesFinder();
 
     @Test
-    public void testBooleanLowerCase() {
+    void testBooleanLowerCase() {
         String format = "prefix %b postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -48,7 +48,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testBooleanUpperCase() {
+    void testBooleanUpperCase() {
         String format = "prefix %B postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -60,7 +60,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testHashLowerCase() {
+    void testHashLowerCase() {
         String format = "prefix %h postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -72,7 +72,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testHashUpperCase() {
+    void testHashUpperCase() {
         String format = "prefix %H postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -84,7 +84,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testObjectLowerCase() {
+    void testObjectLowerCase() {
         String format = "prefix %s postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -96,7 +96,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testObjectUpperCase() {
+    void testObjectUpperCase() {
         String format = "prefix %s postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -108,7 +108,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testCharLowerCase() {
+    void testCharLowerCase() {
         String format = "prefix %c postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -120,7 +120,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testCharUpperCase() {
+    void testCharUpperCase() {
         String format = "prefix %C postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -132,7 +132,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testDecimalInteger() {
+    void testDecimalInteger() {
         String format = "prefix %d postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -145,7 +145,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testOctalInteger() {
+    void testOctalInteger() {
         String format = "prefix %o postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -158,7 +158,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testHexadecimalIntegerLowerCase() {
+    void testHexadecimalIntegerLowerCase() {
         String format = "prefix %x postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -171,7 +171,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testHexadecimalIntegerUpperCase() {
+    void testHexadecimalIntegerUpperCase() {
         String format = "prefix %X postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -184,7 +184,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testComputerizedScientificLowerCase() {
+    void testComputerizedScientificLowerCase() {
         String format = "prefix %e postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -197,7 +197,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testComputerizedScientificUpperCase() {
+    void testComputerizedScientificUpperCase() {
         String format = "prefix %E postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -210,7 +210,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testGeneralScientificLowerCase() {
+    void testGeneralScientificLowerCase() {
         String format = "prefix %g postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -223,7 +223,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testGeneralScientificUpperCase() {
+    void testGeneralScientificUpperCase() {
         String format = "prefix %G postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -236,7 +236,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testDecimal() {
+    void testDecimal() {
         String format = "prefix %f postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -249,7 +249,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testHexadecimalExponentialLowerCase() {
+    void testHexadecimalExponentialLowerCase() {
         String format = "prefix %a postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -261,7 +261,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testHexadecimalExponentialUpperCase() {
+    void testHexadecimalExponentialUpperCase() {
         String format = "prefix %A postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -273,7 +273,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testDateTimeLowerCase() {
+    void testDateTimeLowerCase() {
         String format = "prefix %tc postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -285,7 +285,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testDateTimeUpperCase() {
+    void testDateTimeUpperCase() {
         String format = "prefix %tc postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -297,7 +297,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testPercent() {
+    void testPercent() {
         String format = "prefix %% postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -306,7 +306,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testLineBreak() {
+    void testLineBreak() {
         String format = "prefix %n postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
@@ -315,7 +315,7 @@ public class StringFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testComplexFormat() {
+    void testComplexFormat() {
         String format = "%tF %<tT %tF %<tT %s %<s %s %<d %d %<d %<d %2$b%n";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);

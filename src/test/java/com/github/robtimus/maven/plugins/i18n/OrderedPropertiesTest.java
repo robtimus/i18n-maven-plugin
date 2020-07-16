@@ -17,9 +17,9 @@
 
 package com.github.robtimus.maven.plugins.i18n;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
@@ -27,11 +27,11 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "nls", "javadoc" })
-public class OrderedPropertiesTest {
+@SuppressWarnings("nls")
+class OrderedPropertiesTest {
 
     private static final String EXISTING_KEY = "generatingClass";
     private static final String MISSING_KEY = UUID.randomUUID().toString();
@@ -42,8 +42,8 @@ public class OrderedPropertiesTest {
     private Properties ordered;
     private Properties regular;
 
-    @Before
-    public void readProperties() {
+    @BeforeEach
+    void readProperties() {
         ordered = readOrdered();
         regular = readRegular();
 
@@ -52,7 +52,7 @@ public class OrderedPropertiesTest {
     }
 
     @Test
-    public void testSetProperty() {
+    void testSetProperty() {
         assertEquals(regular.setProperty(EXISTING_KEY, "value1"), ordered.setProperty(EXISTING_KEY, "value1"));
         assertEquals(regular.setProperty(MISSING_KEY, "value2"), ordered.setProperty(MISSING_KEY, "value2"));
 
@@ -61,7 +61,7 @@ public class OrderedPropertiesTest {
     }
 
     @Test
-    public void testGetProperty() {
+    void testGetProperty() {
         assertEquals(regular.getProperty(EXISTING_KEY), ordered.getProperty(EXISTING_KEY));
         assertEquals(regular.getProperty(MISSING_KEY), ordered.getProperty(MISSING_KEY));
 
@@ -73,12 +73,12 @@ public class OrderedPropertiesTest {
     }
 
     @Test
-    public void testPropertyNames() {
+    void testPropertyNames() {
         testEnumeration(ordered.propertyNames(), regular.propertyNames());
     }
 
     @Test
-    public void testStringPropertyNames() {
+    void testStringPropertyNames() {
         assertEquals(regular.stringPropertyNames(), ordered.stringPropertyNames());
 
         ordered.stringPropertyNames().remove(EXISTING_KEY);
@@ -103,7 +103,7 @@ public class OrderedPropertiesTest {
     }
 
     @Test
-    public void testSize() {
+    void testSize() {
         assertEquals(regular.size(), ordered.size());
 
         ordered.remove(EXISTING_KEY);
@@ -123,7 +123,7 @@ public class OrderedPropertiesTest {
     }
 
     @Test
-    public void testIsEmpty() {
+    void testIsEmpty() {
         assertEquals(regular.isEmpty(), ordered.isEmpty());
 
         ordered.remove(EXISTING_KEY);
@@ -143,35 +143,35 @@ public class OrderedPropertiesTest {
     }
 
     @Test
-    public void testKeys() {
+    void testKeys() {
         testEnumeration(ordered.keys(), regular.keys());
     }
 
     @Test
-    public void testElements() {
+    void testElements() {
         testEnumeration(ordered.elements(), regular.elements());
     }
 
     @Test
-    public void testContains() {
+    void testContains() {
         assertEquals(regular.contains(EXISTING_KEY), ordered.contains(EXISTING_KEY));
         assertEquals(regular.contains(MISSING_KEY), ordered.contains(MISSING_KEY));
     }
 
     @Test
-    public void testContainsKey() {
+    void testContainsKey() {
         assertEquals(regular.containsKey(EXISTING_KEY), ordered.containsKey(EXISTING_KEY));
         assertEquals(regular.containsKey(MISSING_KEY), ordered.containsKey(MISSING_KEY));
     }
 
     @Test
-    public void testContainsValue() {
+    void testContainsValue() {
         assertEquals(regular.containsValue(EXISTING_VALUE), ordered.containsValue(EXISTING_VALUE));
         assertEquals(regular.containsValue(MISSING_VALUE), ordered.containsValue(MISSING_VALUE));
     }
 
     @Test
-    public void testGet() {
+    void testGet() {
         assertEquals(regular.get(EXISTING_KEY), ordered.get(EXISTING_KEY));
         assertEquals(regular.get(MISSING_KEY), ordered.get(MISSING_KEY));
 
@@ -179,7 +179,7 @@ public class OrderedPropertiesTest {
     }
 
     @Test
-    public void testPut() {
+    void testPut() {
         assertEquals(regular.put(EXISTING_KEY, "value1"), ordered.put(EXISTING_KEY, "value1"));
         assertEquals(regular.put(MISSING_KEY, "value2"), ordered.put(MISSING_KEY, "value2"));
 
@@ -188,7 +188,7 @@ public class OrderedPropertiesTest {
     }
 
     @Test
-    public void testRemove() {
+    void testRemove() {
         assertEquals(regular.remove(EXISTING_KEY), ordered.remove(EXISTING_KEY));
         assertEquals(regular.remove(MISSING_KEY), ordered.remove(MISSING_KEY));
 
@@ -197,7 +197,7 @@ public class OrderedPropertiesTest {
     }
 
     @Test
-    public void testClear() {
+    void testClear() {
         ordered.clear();
         regular.clear();
 
@@ -205,7 +205,7 @@ public class OrderedPropertiesTest {
     }
 
     @Test
-    public void testClone() {
+    void testClone() {
         Properties orderedClone = (Properties) ordered.clone();
         Properties regularClone = (Properties) regular.clone();
 

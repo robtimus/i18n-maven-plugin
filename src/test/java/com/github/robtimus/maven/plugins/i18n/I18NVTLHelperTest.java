@@ -17,17 +17,17 @@
 
 package com.github.robtimus.maven.plugins.i18n;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 import com.github.robtimus.maven.plugins.i18n.I18N.Node;
 
-@SuppressWarnings({ "nls", "javadoc" })
-public class I18NVTLHelperTest {
+@SuppressWarnings("nls")
+class I18NVTLHelperTest {
 
     private final I18N.VTLHelper helper = new I18N.VTLHelper();
 
     @Test
-    public void testVarName() {
+    void testVarName() {
         for (String keyWord : I18N.VTLHelper.KEYWORDS) {
             testVarName(keyWord, "_" + keyWord);
         }
@@ -46,7 +46,7 @@ public class I18NVTLHelperTest {
     }
 
     @Test
-    public void testClassName() {
+    void testClassName() {
         for (String keyWord : I18N.VTLHelper.KEYWORDS) {
             String capitalizedKeyword = capitalize(keyWord);
             testClassName(keyWord, "_" + capitalizedKeyword + "_", "_" + capitalizedKeyword + "__", "_" + capitalizedKeyword + "___");

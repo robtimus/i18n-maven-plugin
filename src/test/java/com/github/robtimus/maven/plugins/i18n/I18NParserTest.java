@@ -17,16 +17,16 @@
 
 package com.github.robtimus.maven.plugins.i18n;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Iterator;
 import java.util.Properties;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "nls", "javadoc" })
-public class I18NParserTest {
+@SuppressWarnings("nls")
+class I18NParserTest {
 
     @Test
-    public void testParse() {
+    void testParse() {
         Properties properties = new OrderedProperties();
         properties.setProperty("test.value", "value1");
         properties.setProperty("test.node", "value2");

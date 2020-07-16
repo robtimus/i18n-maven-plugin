@@ -20,20 +20,20 @@ package com.github.robtimus.maven.plugins.i18n;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import com.github.robtimus.maven.plugins.i18n.I18N.ArgumentTypesFinder;
 import com.github.robtimus.maven.plugins.i18n.I18N.ArgumentTypesFinder.ArgumentTypes;
 
-@SuppressWarnings({ "nls", "javadoc" })
-public class MessageFormatArgumentTypesFinderTest {
+@SuppressWarnings("nls")
+class MessageFormatArgumentTypesFinderTest {
 
     private final ArgumentTypesFinder argumentTypesFinder = new MessageFormatArgumentTypesFinder();
 
     @Test
-    public void testNoArguments() {
+    void testNoArguments() {
         String pattern = "prefix postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(pattern);
@@ -42,7 +42,7 @@ public class MessageFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testMultipleArgumentsInOrder() {
+    void testMultipleArgumentsInOrder() {
         String pattern = "prefix {0} infix {1} postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(pattern);
@@ -53,7 +53,7 @@ public class MessageFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testMultipleArgumentsOutOfOrder() {
+    void testMultipleArgumentsOutOfOrder() {
         String pattern = "prefix {1} infix {0} postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(pattern);
@@ -64,7 +64,7 @@ public class MessageFormatArgumentTypesFinderTest {
     }
 
     @Test
-    public void testMultipleArgumentsWithGap() {
+    void testMultipleArgumentsWithGap() {
         String pattern = "prefix {5} infix {2} postfix";
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(pattern);

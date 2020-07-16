@@ -17,11 +17,11 @@
 
 package com.github.robtimus.maven.plugins.i18n;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -35,13 +35,13 @@ import java.util.Enumeration;
 import java.util.Properties;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({ "nls", "javadoc" })
-public class GenerateMojoTest {
+@SuppressWarnings("nls")
+class GenerateMojoTest {
 
     @Test
-    public void testReadProperties() throws MojoExecutionException {
+    void testReadProperties() throws MojoExecutionException {
         GenerateMojo mojo = new GenerateMojo();
         mojo.sourceDirectory = new File("src/main/resources");
         mojo.bundleName = "com.github.robtimus.maven.plugins.i18n.i18n";
@@ -63,7 +63,7 @@ public class GenerateMojoTest {
     }
 
     @Test
-    public void testGetInputCharsetNotSet() {
+    void testGetInputCharsetNotSet() {
         GenerateMojo mojo = new GenerateMojo();
         Log log = mock(Log.class);
         mojo.setLog(log);
@@ -76,7 +76,7 @@ public class GenerateMojoTest {
     }
 
     @Test
-    public void testGetInputCharsetSet() {
+    void testGetInputCharsetSet() {
         GenerateMojo mojo = new GenerateMojo();
         Log log = mock(Log.class);
         mojo.setLog(log);
@@ -93,7 +93,7 @@ public class GenerateMojoTest {
     }
 
     @Test
-    public void testGetOutputCharsetNotSet() {
+    void testGetOutputCharsetNotSet() {
         GenerateMojo mojo = new GenerateMojo();
         Log log = mock(Log.class);
         mojo.setLog(log);
@@ -106,7 +106,7 @@ public class GenerateMojoTest {
     }
 
     @Test
-    public void testGetOutputCharsetSet() {
+    void testGetOutputCharsetSet() {
         GenerateMojo mojo = new GenerateMojo();
         Log log = mock(Log.class);
         mojo.setLog(log);
@@ -123,54 +123,54 @@ public class GenerateMojoTest {
     }
 
     @Test
-    public void testGetLicenseTextNotSet() throws MojoExecutionException {
+    void testGetLicenseTextNotSet() throws MojoExecutionException {
         GenerateMojo mojo = new GenerateMojo();
 
         assertNull(mojo.getLicenseText());
     }
 
     @Test
-    public void testGetLicenseTextApache2() throws MojoExecutionException, IOException {
+    void testGetLicenseTextApache2() throws MojoExecutionException, IOException {
         testGetLicenseTextPredefined("Apache-2.0");
     }
 
     @Test
-    public void testGetLicenseTextBSD2Clause() throws MojoExecutionException, IOException {
+    void testGetLicenseTextBSD2Clause() throws MojoExecutionException, IOException {
         testGetLicenseTextPredefined("BSD-2-Clause");
     }
 
     @Test
-    public void testGetLicenseTextEPL10() throws MojoExecutionException, IOException {
+    void testGetLicenseTextEPL10() throws MojoExecutionException, IOException {
         testGetLicenseTextPredefined("EPL-1.0");
     }
 
     @Test
-    public void testGetLicenseTextGPL20() throws MojoExecutionException, IOException {
+    void testGetLicenseTextGPL20() throws MojoExecutionException, IOException {
         testGetLicenseTextPredefined("GPL-2.0");
     }
 
     @Test
-    public void testGetLicenseTextGPL30() throws MojoExecutionException, IOException {
+    void testGetLicenseTextGPL30() throws MojoExecutionException, IOException {
         testGetLicenseTextPredefined("GPL-3.0");
     }
 
     @Test
-    public void testGetLicenseTextLGPL20() throws MojoExecutionException, IOException {
+    void testGetLicenseTextLGPL20() throws MojoExecutionException, IOException {
         testGetLicenseTextPredefined("LGPL-2.0");
     }
 
     @Test
-    public void testGetLicenseTextLGPL21() throws MojoExecutionException, IOException {
+    void testGetLicenseTextLGPL21() throws MojoExecutionException, IOException {
         testGetLicenseTextPredefined("LGPL-2.1");
     }
 
     @Test
-    public void testGetLicenseTextMIT() throws MojoExecutionException, IOException {
+    void testGetLicenseTextMIT() throws MojoExecutionException, IOException {
         testGetLicenseTextPredefined("MIT");
     }
 
     @Test
-    public void testGetLicenseTextMPL20() throws MojoExecutionException, IOException {
+    void testGetLicenseTextMPL20() throws MojoExecutionException, IOException {
         testGetLicenseTextPredefined("MPL-2.0");
     }
 
@@ -182,7 +182,7 @@ public class GenerateMojoTest {
     }
 
     @Test
-    public void testGetLicenseTextFromFile() throws MojoExecutionException, IOException {
+    void testGetLicenseTextFromFile() throws MojoExecutionException, IOException {
         GenerateMojo mojo = new GenerateMojo();
         mojo.licenseText = "src/test/resources/com/github/robtimus/maven/plugins/i18n/test-license";
 
@@ -190,7 +190,7 @@ public class GenerateMojoTest {
     }
 
     @Test
-    public void testGetLicenseTextFromURL() throws MojoExecutionException, IOException {
+    void testGetLicenseTextFromURL() throws MojoExecutionException, IOException {
         GenerateMojo mojo = new GenerateMojo();
         // use a URL to a file
         mojo.licenseText = new File("src/test/resources/com/github/robtimus/maven/plugins/i18n/test-license").toURI().toURL().toString();
@@ -199,7 +199,7 @@ public class GenerateMojoTest {
     }
 
     @Test
-    public void testGetLicenseTextFromText() throws MojoExecutionException {
+    void testGetLicenseTextFromText() throws MojoExecutionException {
         GenerateMojo mojo = new GenerateMojo();
         mojo.licenseText = "Dummy license text";
 
@@ -207,7 +207,7 @@ public class GenerateMojoTest {
     }
 
     @Test
-    public void testGetI18NClassNameFromPackagedBundle() {
+    void testGetI18NClassNameFromPackagedBundle() {
         GenerateMojo mojo = new GenerateMojo();
         mojo.bundleName = "com.github.robtimus.maven.plugins.i18n.i18n";
 
@@ -215,7 +215,7 @@ public class GenerateMojoTest {
     }
 
     @Test
-    public void testGetI18NClassNameFromNonPackagedBundle() {
+    void testGetI18NClassNameFromNonPackagedBundle() {
         GenerateMojo mojo = new GenerateMojo();
         mojo.bundleName = "i18n";
 
@@ -223,7 +223,7 @@ public class GenerateMojoTest {
     }
 
     @Test
-    public void testGetI18NClassNameExplicitlySet() {
+    void testGetI18NClassNameExplicitlySet() {
         GenerateMojo mojo = new GenerateMojo();
         mojo.className = "test.I18N";
 
