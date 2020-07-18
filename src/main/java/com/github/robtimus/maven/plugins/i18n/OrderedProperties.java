@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 
@@ -127,30 +128,22 @@ class OrderedProperties extends Properties {
     @Override
     @SuppressWarnings("nls")
     public synchronized Object get(Object key) {
-        if (key == null) {
-            throw new NullPointerException("key must not be null");
-        }
+        Objects.requireNonNull(key, "key must not be null");
         return properties.get(key);
     }
 
     @Override
     @SuppressWarnings("nls")
     public synchronized Object put(Object key, Object value) {
-        if (key == null) {
-            throw new NullPointerException("key must not be null");
-        }
-        if (value == null) {
-            throw new NullPointerException("value must not be null");
-        }
+        Objects.requireNonNull(key, "key must not be null");
+        Objects.requireNonNull(value, "value must not be null");
         return properties.put((String) key, (String) value);
     }
 
     @Override
     @SuppressWarnings("nls")
     public synchronized Object remove(Object key) {
-        if (key == null) {
-            throw new NullPointerException("key must not be null");
-        }
+        Objects.requireNonNull(key, "key must not be null");
         return properties.remove(key);
     }
 
