@@ -35,7 +35,7 @@ final class MessageFormatArgumentTypesFinder implements ArgumentTypesFinder {
         List<ArgumentTypes> argumentTypes = new ArrayList<>(argumentCount);
         // can't make a distinction between types, just use Object for all
         for (int i = 0; i < argumentCount; i++) {
-            argumentTypes.add(OBJECT);
+            argumentTypes.add(ArgumentTypes.OBJECT);
         }
 
         return argumentTypes;

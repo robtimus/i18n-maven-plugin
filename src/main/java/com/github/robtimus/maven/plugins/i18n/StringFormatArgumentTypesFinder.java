@@ -68,7 +68,7 @@ final class StringFormatArgumentTypesFinder implements ArgumentTypesFinder {
         for (ListIterator<ArgumentTypes> i = result.listIterator(); i.hasNext(); ) {
             ArgumentTypes types = i.next();
             if (types == null) {
-                i.set(OBJECT);
+                i.set(ArgumentTypes.OBJECT);
             }
         }
 
@@ -149,7 +149,7 @@ final class StringFormatArgumentTypesFinder implements ArgumentTypesFinder {
         private ArgumentTypes getTypes(char c) {
             if (isText(c)) {
                 // will be ignored
-                return OBJECT;
+                return ArgumentTypes.OBJECT;
             }
             switch (c) {
             case 'b':
@@ -159,7 +159,7 @@ final class StringFormatArgumentTypesFinder implements ArgumentTypesFinder {
             case 'H':
             case 's':
             case 'S':
-                return OBJECT;
+                return ArgumentTypes.OBJECT;
             case 'c':
             case 'C':
                 return new ArgumentTypes(char.class, Character.class);
@@ -179,7 +179,7 @@ final class StringFormatArgumentTypesFinder implements ArgumentTypesFinder {
             case 'A':
                 return new ArgumentTypes(float.class, Float.class, double.class, Double.class);
             default:
-                return OBJECT;
+                return ArgumentTypes.OBJECT;
             }
         }
 

@@ -249,12 +249,13 @@ final class I18N {
 
     public interface ArgumentTypesFinder {
 
-        // OBJECT is effectively immutable, as it will always only contain one type : Object.class
-        ArgumentTypes OBJECT = new ArgumentTypes(Object.class);
-
         List<ArgumentTypes> findArgumentTypes(String formatOrPattern);
 
         final class ArgumentTypes {
+
+            // OBJECT is effectively immutable, as it will always only contain one type : Object.class
+            static final ArgumentTypes OBJECT = new ArgumentTypes(Object.class);
+
             private final Set<Class<?>> types = new LinkedHashSet<>();
 
             ArgumentTypes(Class<?>... types) {

@@ -49,7 +49,7 @@ class MessageFormatArgumentTypesFinderTest {
 
         assertEquals(2, argumentTypesList.size());
 
-        assertThat(argumentTypesList, everyItem(is(ArgumentTypesFinder.OBJECT)));
+        assertThat(argumentTypesList, everyItem(is(ArgumentTypes.OBJECT)));
     }
 
     @Test
@@ -60,7 +60,7 @@ class MessageFormatArgumentTypesFinderTest {
 
         assertEquals(2, argumentTypesList.size());
 
-        assertThat(argumentTypesList, everyItem(is(ArgumentTypesFinder.OBJECT)));
+        assertThat(argumentTypesList, everyItem(is(ArgumentTypes.OBJECT)));
     }
 
     @Test
@@ -71,6 +71,6 @@ class MessageFormatArgumentTypesFinderTest {
 
         assertEquals(6, argumentTypesList.size());
 
-        assertThat(argumentTypesList, everyItem(is(ArgumentTypesFinder.OBJECT)));
+        assertThat(argumentTypesList, everyItem(is(ArgumentTypes.OBJECT)));
     }
 }

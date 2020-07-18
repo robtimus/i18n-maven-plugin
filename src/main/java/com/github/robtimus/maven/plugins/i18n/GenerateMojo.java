@@ -236,14 +236,21 @@ public class GenerateMojo extends AbstractMojo {
             if (licenseFile.exists()) {
                 return getLicenseText(licenseFile);
             }
-            try {
-                URL licenseURL = new URL(licenseText);
+            URL licenseURL = createURL(licenseText);
+            if (licenseURL != null) {
                 return getLicenseText(licenseURL);
-            } catch (@SuppressWarnings("unused") MalformedURLException e) {
-                return licenseText;
             }
+            return licenseText;
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage(), e);
+        }
+    }
+
+    private URL createURL(String url) {
+        try {
+            return new URL(url);
+        } catch (@SuppressWarnings("unused") MalformedURLException e) {
+            return null;
         }
     }
 
@@ -260,13 +267,13 @@ public class GenerateMojo extends AbstractMojo {
     }
 
     private String getLicenseText(Reader input) throws IOException {
-        StringBuilder licenseText = new StringBuilder();
+        StringBuilder result = new StringBuilder();
         char[] buffer = new char[4096];
         int len;
         while ((len = input.read(buffer)) != -1) {
-            licenseText.append(buffer, 0, len);
+            result.append(buffer, 0, len);
         }
-        return licenseText.toString();
+        return result.toString();
     }
 
     String getI18NClassName() {
