@@ -66,11 +66,9 @@
   </issueManagement>
 
   <properties>
-    <version.commons-collections>3.2.2</version.commons-collections>
-    <version.commons-lang>2.6</version.commons-lang>
+    <version.freemarker>2.3.30</version.freemarker>
     <version.maven>3.6.0</version.maven>
     <version.maven-annotations>3.6.0</version.maven-annotations>
-    <version.velocity>1.7</version.velocity>
 
     <version.plugin.maven>3.6.0</version.plugin.maven>
 
@@ -98,21 +96,9 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.velocity</groupId>
-      <artifactId>velocity</artifactId>
-      <version>${version.velocity}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>${version.commons-lang}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>${version.commons-collections}</version>
+      <groupId>org.freemarker</groupId>
+      <artifactId>freemarker</artifactId>
+      <version>${version.freemarker}</version>
     </dependency>
 
     <dependency>

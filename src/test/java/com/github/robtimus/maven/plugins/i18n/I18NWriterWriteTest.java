@@ -132,7 +132,7 @@ class I18NWriterWriteTest {
                 cleanupFileOrDir(child);
             }
         }
-        file.delete();
+        //file.delete();
     }
 
     static List<Object[]> getParameters() {

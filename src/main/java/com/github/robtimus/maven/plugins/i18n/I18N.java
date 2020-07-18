@@ -29,21 +29,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.context.Context;
-import org.apache.velocity.exception.VelocityException;
-import org.apache.velocity.runtime.RuntimeConstants;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateExceptionHandler;
 
 /**
  * A wrapper class for I18N content and all related classes.
- * This allows classes {@link Node} and {@link VTLHelper} to be included in Velocity, which only supports methods and properties of public classes,
+ * This allows classes {@link Node} and {@link FTLHelper} to be included in FreeMarker, which only supports methods and properties of public classes,
  * while still keeping them package private.
  *
  * @author Rob Spoor
@@ -149,7 +146,7 @@ final class I18N {
 
     static final class Writer {
 
-        private final VelocityEngine engine;
+        private final Configuration configuration;
 
         private final Charset encoding;
 
@@ -160,13 +157,13 @@ final class I18N {
 
         @SuppressWarnings("nls")
         Writer(Charset encoding, boolean publicVisibility, License license, boolean useMessageFormat, Set<String> suppressWarnings) {
-            Properties properties = new Properties();
-            properties.put(RuntimeConstants.RESOURCE_LOADER, "class");
-            properties.put("class.resource.loader.class", ClasspathResourceLoader.class.getName());
-            properties.put(RuntimeConstants.VM_ARGUMENTS_STRICT, "true");
-            properties.put(RuntimeConstants.RUNTIME_REFERENCES_STRICT, "true");
-
-            engine = new VelocityEngine(properties);
+            configuration = new Configuration(Configuration.VERSION_2_3_30);
+            configuration.setClassForTemplateLoading(getClass(), "templates");
+            configuration.setDefaultEncoding(encoding.name());
+            configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+            configuration.setLogTemplateExceptions(false);
+            configuration.setWrapUncheckedExceptions(false);
+            configuration.setFallbackOnNullLoopVariable(false);
 
             this.encoding = encoding;
 
@@ -190,27 +187,27 @@ final class I18N {
                 simpleClassName = i18nClassName.substring(index + 1);
             }
 
-            Context context = new VelocityContext();
-            context.put("visibility", publicVisibility ? "public " : "");
-            context.put("packageName", packageName);
-            context.put("simpleClassName", simpleClassName);
-            context.put("bundleName", bundleName);
+            Map<String, Object> root = new HashMap<>();
+            root.put("visibility", publicVisibility ? "public " : "");
+            root.put("packageName", packageName);
+            root.put("simpleClassName", simpleClassName);
+            root.put("bundleName", bundleName);
 
-            context.put("useMessageFormat", useMessageFormat);
-            context.put("argumentTypesFinder", useMessageFormat ? new MessageFormatArgumentTypesFinder() : new StringFormatArgumentTypesFinder());
+            root.put("useMessageFormat", useMessageFormat);
+            root.put("argumentTypesFinder", useMessageFormat ? new MessageFormatArgumentTypesFinder() : new StringFormatArgumentTypesFinder());
 
-            context.put("suppressWarnings", suppressWarnings);
+            root.put("suppressWarnings", suppressWarnings);
 
-            context.put("i18n", i18n);
-            context.put("helper", new VTLHelper());
+            root.put("i18n", i18n);
+            root.put("helper", new FTLHelper());
 
             File packageDir = packageName == null ? outputDir : new File(outputDir, packageName.replace('.', '/'));
             packageDir.mkdirs();
 
             String i18nClassFileName = simpleClassName + ".java";
             File i18nClassFile = new File(packageDir, i18nClassFileName);
-            context.put("licenseText", getLicenseText(i18nClassFileName));
-            write("com/github/robtimus/maven/plugins/i18n/templates/I18N.vtl", context, i18nClassFile);
+            root.put("licenseText", getLicenseText(i18nClassFileName));
+            write("I18N.ftl", root, i18nClassFile);
         }
 
         String getLicenseText(String fileName) {
@@ -240,10 +237,11 @@ final class I18N {
             return license.getCopyrightHolder() != null ? license.getCopyrightHolder() : System.getProperty("user.name"); //$NON-NLS-1$
         }
 
-        private void write(String templateName, Context context, File file) throws IOException {
+        private void write(String templateName, Map<String, Object> root, File file) throws IOException {
+            Template template = configuration.getTemplate(templateName, encoding.name());
             try (java.io.Writer writer = new OutputStreamWriter(new FileOutputStream(file), encoding)) {
-                engine.mergeTemplate(templateName, encoding.name(), context, writer);
-            } catch (VelocityException e) {
+                template.process(root, writer);
+            } catch (TemplateException e) {
                 throw new IOException(e);
             }
         }
@@ -284,7 +282,7 @@ final class I18N {
         }
     }
 
-    public static final class VTLHelper {
+    public static final class FTLHelper {
 
         @SuppressWarnings("nls")
         static final Collection<String> KEYWORDS = Collections.unmodifiableCollection(Arrays.asList(
@@ -318,7 +316,7 @@ final class I18N {
             return name;
         }
 
-        public String className(Node node, Stack<String> classNames) {
+        public String className(Node node, Collection<String> classNames) {
             String className = className(node);
             while (classNames.contains(className)) {
                 className += '_';
@@ -340,14 +338,6 @@ final class I18N {
             return Character.isJavaIdentifierStart(name.charAt(0)) && !KEYWORDS.contains(name) && !LITERALS.contains(name);
         }
 
-        public <T> Stack<T> stack() {
-            return new Stack<>();
-        }
-
-        public String stripLast(String s, int count) {
-            return s.substring(0, s.length() - count);
-        }
-
         public String trimRight(String s) {
             int end = s.length();
             while (end > 0 && Character.isWhitespace(s.charAt(end - 1))) {
@@ -358,32 +348,6 @@ final class I18N {
 
         public List<String> splitLines(String text) {
             return text == null ? Collections.<String>emptyList() : Arrays.asList(text.split("\r?\n")); //$NON-NLS-1$
-        }
-    }
-
-    public static final class Stack<T> {
-
-        private final LinkedList<T> stack;
-
-        private Stack() {
-            stack = new LinkedList<>();
-        }
-
-        public T push(T value) {
-            stack.addLast(value);
-            return value;
-        }
-
-        public T pop() {
-            return stack.removeLast();
-        }
-
-        public T peek() {
-            return stack.peekLast();
-        }
-
-        private boolean contains(T object) {
-            return stack.contains(object);
         }
     }
 }

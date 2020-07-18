@@ -1,5 +1,5 @@
 /*
- * I18NVTLHelperTest.java
+ * I18NFTLHelperTest.java
  * Copyright 2017 Rob Spoor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,20 +18,22 @@
 package com.github.robtimus.maven.plugins.i18n;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
+import java.util.Collection;
 import org.junit.jupiter.api.Test;
 import com.github.robtimus.maven.plugins.i18n.I18N.Node;
 
 @SuppressWarnings("nls")
-class I18NVTLHelperTest {
+class I18NFTLHelperTest {
 
-    private final I18N.VTLHelper helper = new I18N.VTLHelper();
+    private final I18N.FTLHelper helper = new I18N.FTLHelper();
 
     @Test
     void testVarName() {
-        for (String keyWord : I18N.VTLHelper.KEYWORDS) {
+        for (String keyWord : I18N.FTLHelper.KEYWORDS) {
             testVarName(keyWord, "_" + keyWord);
         }
-        for (String literal : I18N.VTLHelper.LITERALS) {
+        for (String literal : I18N.FTLHelper.LITERALS) {
             testVarName(literal, "_" + literal);
         }
 
@@ -47,11 +49,11 @@ class I18NVTLHelperTest {
 
     @Test
     void testClassName() {
-        for (String keyWord : I18N.VTLHelper.KEYWORDS) {
+        for (String keyWord : I18N.FTLHelper.KEYWORDS) {
             String capitalizedKeyword = capitalize(keyWord);
             testClassName(keyWord, "_" + capitalizedKeyword + "_", "_" + capitalizedKeyword + "__", "_" + capitalizedKeyword + "___");
         }
-        for (String literal : I18N.VTLHelper.LITERALS) {
+        for (String literal : I18N.FTLHelper.LITERALS) {
             String capitalizedLiteral = capitalize(literal);
             testClassName(literal, "_" + capitalizedLiteral + "_", "_" + capitalizedLiteral + "__", "_" + capitalizedLiteral + "___");
         }
@@ -63,16 +65,16 @@ class I18NVTLHelperTest {
 
     private void testClassName(String nodeName, String expectedFirst, String expectedSecond, String expectedThird) {
         Node node = createNamedNode(nodeName);
-        I18N.Stack<String> classNames = helper.stack();
+        Collection<String> classNames = new ArrayList<>();
 
         String className = helper.className(node, classNames);
         assertEquals(expectedFirst, className);
 
-        classNames.push(className);
+        classNames.add(className);
         className = helper.className(node, classNames);
         assertEquals(expectedSecond, className);
 
-        classNames.push(className);
+        classNames.add(className);
         className = helper.className(node, classNames);
         assertEquals(expectedThird, className);
     }
