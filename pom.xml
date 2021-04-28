@@ -62,6 +62,7 @@
   </issueManagement>
 
   <properties>
+    <version.commons-io>2.8.0</version.commons-io>
     <version.freemarker>2.3.31</version.freemarker>
     <version.maven>3.6.0</version.maven>
     <version.maven-annotations>3.6.0</version.maven-annotations>
@@ -89,6 +90,12 @@
       <artifactId>maven-plugin-annotations</artifactId>
       <version>${version.maven-annotations}</version>
       <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${version.commons-io}</version>
     </dependency>
 
     <dependency>
