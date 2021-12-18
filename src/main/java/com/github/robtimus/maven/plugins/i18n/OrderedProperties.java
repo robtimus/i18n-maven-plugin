@@ -187,7 +187,8 @@ class OrderedProperties extends Properties {
 
     @Override
     public synchronized boolean equals(Object o) {
-        return this == o || (o instanceof Map<?, ?> && properties.equals(o));
+        return this == o
+                || o instanceof Map<?, ?> && properties.equals(o);
     }
 
     @Override

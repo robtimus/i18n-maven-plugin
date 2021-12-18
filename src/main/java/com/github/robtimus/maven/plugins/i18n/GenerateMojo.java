@@ -51,6 +51,7 @@ public class GenerateMojo extends AbstractMojo {
 
     /**
      * The bundle name to generate an I18N class for. The matching bundle file will be resolved relative to the configured source directory.
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.bundleName", required = true)
@@ -58,6 +59,7 @@ public class GenerateMojo extends AbstractMojo {
 
     /**
      * The source directory where the I18N resource file can be found, without the package structure.
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.sourceDirectory", defaultValue = "${project.build.resources[0].directory}", required = true)
@@ -65,6 +67,7 @@ public class GenerateMojo extends AbstractMojo {
 
     /**
      * The fully qualified name of the I18N class to generate. If not specified, the class name will be based on the bundle name.
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.className")
@@ -73,6 +76,7 @@ public class GenerateMojo extends AbstractMojo {
     /**
      * The output directory where the I18N class will be written to, without the package structure.
      * This directory will be added as a project source root if needed.
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.outputDirectory", defaultValue = "${project.build.directory}/generated-sources/resource-bundles", required = true)
@@ -80,6 +84,7 @@ public class GenerateMojo extends AbstractMojo {
 
     /**
      * The scope of the project source root, {@code compile} or {@code test}.
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.scope", defaultValue = "compile")
@@ -87,6 +92,7 @@ public class GenerateMojo extends AbstractMojo {
 
     /**
      * The input encoding.
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.inputEncoding", defaultValue = "${project.build.sourceEncoding}")
@@ -94,6 +100,7 @@ public class GenerateMojo extends AbstractMojo {
 
     /**
      * The output encoding.
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.outputEncoding", defaultValue = "${project.build.sourceEncoding}")
@@ -126,6 +133,7 @@ public class GenerateMojo extends AbstractMojo {
      *   <li><code>${copyrightYear}</code> for the copyright year.</li>
      *   <li><code>${copyrightHolder}</code> for the copyright holder.</li>
      * </ul>
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.license.text")
@@ -133,6 +141,7 @@ public class GenerateMojo extends AbstractMojo {
 
     /**
      * The copyright year to be inserted into the license text. If not configured the current year will be used.
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.license.copyrightYear")
@@ -140,6 +149,7 @@ public class GenerateMojo extends AbstractMojo {
 
     /**
      * The copyright holder to be inserted into the license text.
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.license.copyrightHolder", defaultValue = "${user.name}")
@@ -147,6 +157,7 @@ public class GenerateMojo extends AbstractMojo {
 
     /**
      * If {@code true}, generated classes and methods will have public visibility; otherwise they will be package private.
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.publicVisibility", defaultValue = "true")
@@ -154,6 +165,7 @@ public class GenerateMojo extends AbstractMojo {
 
     /**
      * Warnings that will be suppressed using {@link SuppressWarnings}.
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.suppressWarnings")
@@ -162,6 +174,7 @@ public class GenerateMojo extends AbstractMojo {
     /**
      * If {@code true}, {@link MessageFormat} will be used to format messages;
      * otherwise {@link String#format(java.util.Locale, String, Object...)} will be used.
+     *
      * @since 1.0
      */
     @Parameter(property = "i18n.useMessageFormat", defaultValue = "false")

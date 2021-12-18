@@ -45,23 +45,23 @@ final class StringFormatArgumentTypesFinder implements ArgumentTypesFinder {
 
         for (FormatSpecifier fs : formatSpecifiers) {
             switch (fs.index) {
-            case FormatSpecifier.LITERAL_INDEX:
-                break;
-            case FormatSpecifier.RELATIVE_INDEX:
-                // if lastIndex < 0, let formatting itself trigger an error
-                if (lastIndex >= 0) {
+                case FormatSpecifier.LITERAL_INDEX:
+                    break;
+                case FormatSpecifier.RELATIVE_INDEX:
+                    // if lastIndex < 0, let formatting itself trigger an error
+                    if (lastIndex >= 0) {
+                        setArgumentTypes(result, lastIndex, fs.types);
+                    }
+                    break;
+                case FormatSpecifier.ORDINARY_INDEX:
+                    lastOrdinaryIndex++;
+                    lastIndex = lastOrdinaryIndex;
                     setArgumentTypes(result, lastIndex, fs.types);
-                }
-                break;
-            case FormatSpecifier.ORDINARY_INDEX:
-                lastOrdinaryIndex++;
-                lastIndex = lastOrdinaryIndex;
-                setArgumentTypes(result, lastIndex, fs.types);
-                break;
-            default:
-                lastIndex = fs.index - 1;
-                setArgumentTypes(result, lastIndex, fs.types);
-                break;
+                    break;
+                default:
+                    lastIndex = fs.index - 1;
+                    setArgumentTypes(result, lastIndex, fs.types);
+                    break;
             }
         }
 
@@ -152,34 +152,34 @@ final class StringFormatArgumentTypesFinder implements ArgumentTypesFinder {
                 return ArgumentTypes.OBJECT;
             }
             switch (c) {
-            case 'b':
-            case 'B':
-                return new ArgumentTypes(boolean.class, Boolean.class);
-            case 'h':
-            case 'H':
-            case 's':
-            case 'S':
-                return ArgumentTypes.OBJECT;
-            case 'c':
-            case 'C':
-                return new ArgumentTypes(char.class, Character.class);
-            case 'd':
-            case 'o':
-            case 'x':
-            case 'X':
-                return new ArgumentTypes(byte.class, Byte.class, short.class, Short.class, int.class, Integer.class, long.class, Long.class,
-                        BigInteger.class);
-            case 'e':
-            case 'E':
-            case 'g':
-            case 'G':
-            case 'f':
-                return new ArgumentTypes(float.class, Float.class, double.class, Double.class, BigDecimal.class);
-            case 'a':
-            case 'A':
-                return new ArgumentTypes(float.class, Float.class, double.class, Double.class);
-            default:
-                return ArgumentTypes.OBJECT;
+                case 'b':
+                case 'B':
+                    return new ArgumentTypes(boolean.class, Boolean.class);
+                case 'h':
+                case 'H':
+                case 's':
+                case 'S':
+                    return ArgumentTypes.OBJECT;
+                case 'c':
+                case 'C':
+                    return new ArgumentTypes(char.class, Character.class);
+                case 'd':
+                case 'o':
+                case 'x':
+                case 'X':
+                    return new ArgumentTypes(byte.class, Byte.class, short.class, Short.class, int.class, Integer.class, long.class, Long.class,
+                            BigInteger.class);
+                case 'e':
+                case 'E':
+                case 'g':
+                case 'G':
+                case 'f':
+                    return new ArgumentTypes(float.class, Float.class, double.class, Double.class, BigDecimal.class);
+                case 'a':
+                case 'A':
+                    return new ArgumentTypes(float.class, Float.class, double.class, Double.class);
+                default:
+                    return ArgumentTypes.OBJECT;
             }
         }
 
