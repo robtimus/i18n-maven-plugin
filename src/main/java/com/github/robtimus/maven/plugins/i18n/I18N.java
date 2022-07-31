@@ -31,7 +31,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -102,15 +101,15 @@ final class I18N {
 
         private static final String ROOT_PATH = ""; //$NON-NLS-1$
 
-        Node parse(Properties properties) {
+        Node parse(Map<String, String> properties) {
             Node root = new Node(ROOT_PATH, ROOT_PATH, false, null);
 
             Map<String, Node> nodes = new HashMap<>();
             nodes.put(ROOT_PATH, root);
 
-            for (Map.Entry<?, ?> entry : properties.entrySet()) {
-                String key = (String) entry.getKey();
-                String value = (String) entry.getValue();
+            for (Map.Entry<String, String> entry : properties.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
                 addNodeIfNotExists(key, nodes, true, value);
             }
             return root;

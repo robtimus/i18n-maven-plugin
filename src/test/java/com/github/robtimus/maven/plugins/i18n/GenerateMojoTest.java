@@ -27,11 +27,13 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
@@ -41,25 +43,35 @@ import org.junit.jupiter.api.Test;
 class GenerateMojoTest {
 
     @Test
-    void testReadProperties() throws MojoExecutionException {
+    void testReadProperties() throws MojoExecutionException, IOException {
         GenerateMojo mojo = new GenerateMojo();
         mojo.sourceDirectory = new File("src/main/resources");
         mojo.bundleName = "com.github.robtimus.maven.plugins.i18n.i18n";
         mojo.inputEncoding = "UTF-8";
 
-        Properties properties = mojo.readProperties();
-        Enumeration<?> keys = properties.keys();
+        Map<String, String> properties = mojo.readProperties();
 
-        assertTrue(keys.hasMoreElements());
-        assertEquals("noInputEncoding", keys.nextElement());
+        Iterator<String> keyIterator = properties.keySet().iterator();
 
-        assertTrue(keys.hasMoreElements());
-        assertEquals("noOutputEncoding", keys.nextElement());
+        assertTrue(keyIterator.hasNext());
+        assertEquals("noInputEncoding", keyIterator.next());
 
-        assertTrue(keys.hasMoreElements());
-        assertEquals("generatingClass", keys.nextElement());
+        assertTrue(keyIterator.hasNext());
+        assertEquals("noOutputEncoding", keyIterator.next());
 
-        assertFalse(keys.hasMoreElements());
+        assertTrue(keyIterator.hasNext());
+        assertEquals("generatingClass", keyIterator.next());
+
+        assertFalse(keyIterator.hasNext());
+
+        Properties expected = new Properties();
+        try (InputStream input = getClass().getResourceAsStream("i18n.properties")) {
+            expected.load(input);
+        }
+
+        for (Map.Entry<String, String> entry : properties.entrySet()) {
+            assertEquals(expected.getProperty(entry.getKey()), entry.getValue());
+        }
     }
 
     @Test

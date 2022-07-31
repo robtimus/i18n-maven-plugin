@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.github.robtimus</groupId>
     <artifactId>robtimus-parent</artifactId>
-    <version>1.4.2</version>
+    <version>1.4.3</version>
     <relativePath />
   </parent>
 
@@ -38,7 +38,7 @@
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>
 
@@ -62,12 +62,12 @@
   </issueManagement>
 
   <properties>
-    <version.commons-io>2.10.0</version.commons-io>
+    <version.commons-io>2.11.0</version.commons-io>
     <version.freemarker>2.3.31</version.freemarker>
     <version.maven>3.8.2</version.maven>
-    <version.maven-annotations>3.6.1</version.maven-annotations>
+    <version.maven-annotations>3.6.4</version.maven-annotations>
 
-    <version.plugin.maven>3.6.1</version.plugin.maven>
+    <version.plugin.maven>3.6.4</version.plugin.maven>
 
     <robtimus.site-index.generate>false</robtimus.site-index.generate>
   </properties>

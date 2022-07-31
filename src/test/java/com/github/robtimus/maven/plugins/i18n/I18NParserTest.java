@@ -19,7 +19,8 @@ package com.github.robtimus.maven.plugins.i18n;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Iterator;
-import java.util.Properties;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("nls")
@@ -27,10 +28,10 @@ class I18NParserTest {
 
     @Test
     void testParse() {
-        Properties properties = new OrderedProperties();
-        properties.setProperty("test.value", "value1");
-        properties.setProperty("test.node", "value2");
-        properties.setProperty("test.node.sub", "value3");
+        Map<String, String> properties = new LinkedHashMap<>();
+        properties.put("test.value", "value1");
+        properties.put("test.node", "value2");
+        properties.put("test.node.sub", "value3");
 
         I18N.Node root = new I18N.Parser().parse(properties);
         assertNode(root, "", null, false, 1);

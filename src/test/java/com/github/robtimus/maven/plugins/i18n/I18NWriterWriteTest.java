@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -36,11 +36,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaCompiler.CompilationTask;
@@ -57,8 +57,8 @@ class I18NWriterWriteTest {
 
     private static final Collection<Locale> LOCALES = Collections.unmodifiableCollection(Arrays.asList(Locale.ENGLISH, Locale.GERMAN, Locale.FRENCH));
 
-    private static Properties bundleWithStringFormat;
-    private static Properties bundleWithMessageFormat;
+    private static Map<String, String> bundleWithStringFormat;
+    private static Map<String, String> bundleWithMessageFormat;
 
     private static I18N.Node i18nWithStringFormat;
     private static I18N.Node i18nWithMessageFormat;
@@ -66,52 +66,52 @@ class I18NWriterWriteTest {
 
     @BeforeAll
     static void setup() throws IOException {
-        bundleWithMessageFormat = new OrderedProperties();
-        bundleWithMessageFormat.setProperty("directTextNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("directTextOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("directTextTwoArgs", "two args: {0}, {1}");
-        bundleWithMessageFormat.setProperty("child1.textNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("child1.textOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("child1.textTwoArgs", "two args: {0}, {1}");
-        bundleWithMessageFormat.setProperty("child1.child11.textNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("child1.child11.textOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("child1.child11.textTwoArgs", "two args: {0}, {1}");
-        bundleWithMessageFormat.setProperty("child1.child12.textNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("child1.child12.textOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("child1.child12.textTwoArgs", "two args: {0}, {1}");
-        bundleWithMessageFormat.setProperty("child1.child13.textNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("child1.child13.textOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("child1.child13.textTwoArgs", "two args: {0}, {1}");
-        bundleWithMessageFormat.setProperty("child2.textNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("child2.textOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("child2.textTwoArgs", "two args: {0}, {1}");
-        bundleWithMessageFormat.setProperty("child2.child21.textNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("child2.child21.textOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("child2.child21.textTwoArgs", "two args: {0}, {1}");
-        bundleWithMessageFormat.setProperty("child2.child22.textNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("child2.child22.textOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("child2.child22.textTwoArgs", "two args: {0}, {1}");
-        bundleWithMessageFormat.setProperty("child2.child23.textNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("child2.child23.textOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("child2.child23.textTwoArgs", "two args: {0}, {1}");
-        bundleWithMessageFormat.setProperty("child3.textNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("child3.textOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("child3.textTwoArgs", "two args: {0}, {1}");
-        bundleWithMessageFormat.setProperty("child3.child31.textNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("child3.child31.textOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("child3.child31.textTwoArgs", "two args: {0}, {1}");
-        bundleWithMessageFormat.setProperty("child3.child32.textNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("child3.child32.textOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("child3.child32.textTwoArgs", "two args: {0}, {1}");
-        bundleWithMessageFormat.setProperty("child3.child33.textNoArgs", "no args");
-        bundleWithMessageFormat.setProperty("child3.child33.textOneArgs", "one args: {0}");
-        bundleWithMessageFormat.setProperty("child3.child33.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat = new LinkedHashMap<>();
+        bundleWithMessageFormat.put("directTextNoArgs", "no args");
+        bundleWithMessageFormat.put("directTextOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("directTextTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("child1.textNoArgs", "no args");
+        bundleWithMessageFormat.put("child1.textOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("child1.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("child1.child11.textNoArgs", "no args");
+        bundleWithMessageFormat.put("child1.child11.textOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("child1.child11.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("child1.child12.textNoArgs", "no args");
+        bundleWithMessageFormat.put("child1.child12.textOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("child1.child12.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("child1.child13.textNoArgs", "no args");
+        bundleWithMessageFormat.put("child1.child13.textOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("child1.child13.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("child2.textNoArgs", "no args");
+        bundleWithMessageFormat.put("child2.textOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("child2.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("child2.child21.textNoArgs", "no args");
+        bundleWithMessageFormat.put("child2.child21.textOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("child2.child21.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("child2.child22.textNoArgs", "no args");
+        bundleWithMessageFormat.put("child2.child22.textOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("child2.child22.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("child2.child23.textNoArgs", "no args");
+        bundleWithMessageFormat.put("child2.child23.textOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("child2.child23.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("child3.textNoArgs", "no args");
+        bundleWithMessageFormat.put("child3.textOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("child3.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("child3.child31.textNoArgs", "no args");
+        bundleWithMessageFormat.put("child3.child31.textOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("child3.child31.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("child3.child32.textNoArgs", "no args");
+        bundleWithMessageFormat.put("child3.child32.textOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("child3.child32.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("child3.child33.textNoArgs", "no args");
+        bundleWithMessageFormat.put("child3.child33.textOneArgs", "one args: {0}");
+        bundleWithMessageFormat.put("child3.child33.textTwoArgs", "two args: {0}, {1}");
         i18nWithMessageFormat = new I18N.Parser().parse(bundleWithMessageFormat);
 
-        bundleWithStringFormat = new OrderedProperties();
-        for (String key : bundleWithMessageFormat.stringPropertyNames()) {
-            String value = bundleWithMessageFormat.getProperty(key).replaceAll("\\{\\d+\\}", "%s");
-            bundleWithStringFormat.setProperty(key, value);
+        bundleWithStringFormat = new LinkedHashMap<>();
+        for (String key : bundleWithMessageFormat.keySet()) {
+            String value = bundleWithMessageFormat.get(key).replaceAll("\\{\\d+\\}", "%s");
+            bundleWithStringFormat.put(key, value);
         }
         i18nWithStringFormat = new I18N.Parser().parse(bundleWithStringFormat);
 
@@ -180,7 +180,7 @@ class I18NWriterWriteTest {
         private final I18N.Writer writer;
         private final boolean publicVisibility;
         private final boolean useMessageFormat;
-        private final Properties bundle;
+        private final Map<String, String> bundle;
         private final I18N.Node i18n;
         private final File outputDir;
 
@@ -197,8 +197,10 @@ class I18NWriterWriteTest {
         }
 
         private void writeBundle() throws IOException {
-            try (OutputStream output = new FileOutputStream(new File(outputDir, "test/test-bundle.properties"))) {
-                bundle.store(output, null);
+            try (PrintStream output = new PrintStream(new FileOutputStream(new File(outputDir, "test/test-bundle.properties")))) {
+                for (Map.Entry<String, String> entry : bundle.entrySet()) {
+                    output.printf("%s = %s%n", entry.getKey(), entry.getValue());
+                }
             }
         }
 
@@ -254,7 +256,7 @@ class I18NWriterWriteTest {
                 }
             }
             Method[] methods = cls.getDeclaredMethods();
-            if (bundle.getProperty(path) != null) {
+            if (bundle.get(path) != null) {
                 // a leaf node, must have 2 get methods
                 int methodCount = 0;
                 for (Method method : methods) {
@@ -347,7 +349,7 @@ class I18NWriterWriteTest {
         }
 
         private String getExpectedString(String path, Locale locale, Object[] args) {
-            String formatOrPattern = bundle.getProperty(path);
+            String formatOrPattern = bundle.get(path);
             assertNotNull(formatOrPattern);
             if (useMessageFormat) {
                 MessageFormat format = locale == null ? new MessageFormat(formatOrPattern) : new MessageFormat(formatOrPattern, locale);

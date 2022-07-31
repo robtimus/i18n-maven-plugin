@@ -29,7 +29,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 import java.util.Set;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -200,15 +200,15 @@ public class GenerateMojo extends AbstractMojo {
     }
 
     private I18N.Node readI18N() throws MojoExecutionException {
-        Properties properties = readProperties();
+        Map<String, String> properties = readProperties();
         return new I18N.Parser().parse(properties);
     }
 
-    Properties readProperties() throws MojoExecutionException {
+    Map<String, String> readProperties() throws MojoExecutionException {
         Charset charset = getInputCharset();
         File sourceFile = getSourceFile();
         try (Reader input = new InputStreamReader(new FileInputStream(sourceFile), charset)) {
-            return OrderedProperties.fromReader(input);
+            return MapReader.readMap(input);
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
