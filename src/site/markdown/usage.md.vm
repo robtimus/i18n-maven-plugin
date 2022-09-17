@@ -37,8 +37,8 @@ The `generate` goal of the I18N plugin is bound to the `generate-sources` phase 
 
 This snippet will create class `com.foo.bar.I18n` from resource file `i18n.properties` in folder `src/main/resources/com/foo/bar`. Assuming the resource bundle contains key `error.message`, this can be accessed as follows:
 
-    String message = I18n.error.message.get();
+    String message = I18n.error.message();
 
 If the message contains any place holders, these will be required in the method call:
 
-    String message = I18n.error.message.get("arg1", "arg2");
+    String message = I18n.error.message("arg1", "arg2");

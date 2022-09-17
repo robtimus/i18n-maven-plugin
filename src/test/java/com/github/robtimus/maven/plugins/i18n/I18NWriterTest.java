@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
-import java.util.Calendar;
+import java.time.Year;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
@@ -115,7 +115,7 @@ class I18NWriterTest {
 
         writer = createWriter(new License(null, null, null));
 
-        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int year = Year.now().getValue();
         assertEquals(Integer.toString(year), writer.getLicenseCopyrightYear());
     }
 

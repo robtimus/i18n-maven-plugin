@@ -75,6 +75,10 @@ final class I18N {
             return path;
         }
 
+        public boolean hasChildren() {
+            return !children.isEmpty();
+        }
+
         public Collection<Node> children() {
             return children.values();
         }

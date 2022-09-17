@@ -84,7 +84,7 @@ class GenerateMojoTest {
 
         assertEquals(defaultCharset, mojo.getInputCharset());
 
-        verify(log).warn(Messages.noInputEncoding.get(defaultCharset));
+        verify(log).warn(Messages.noInputEncoding(defaultCharset));
     }
 
     @Test
@@ -114,7 +114,7 @@ class GenerateMojoTest {
 
         assertEquals(defaultCharset, mojo.getOutputCharset());
 
-        verify(log).warn(Messages.noOutputEncoding.get(defaultCharset));
+        verify(log).warn(Messages.noOutputEncoding(defaultCharset));
     }
 
     @Test

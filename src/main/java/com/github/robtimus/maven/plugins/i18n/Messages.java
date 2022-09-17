@@ -20,28 +20,23 @@
 
 package com.github.robtimus.maven.plugins.i18n;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("nls")
 final class Messages {
 
-    private static final Map<Locale, ResourceBundle> BUNDLES = new HashMap<>();
+    private static final Map<Locale, ResourceBundle> BUNDLES = new ConcurrentHashMap<>();
 
     private Messages() {
         throw new IllegalStateException("cannot create instances of " + getClass().getName());
     }
 
-    private static synchronized ResourceBundle getResourceBundle(Locale locale) {
+    private static ResourceBundle getResourceBundle(Locale locale) {
         Locale l = nonNull(locale);
-        ResourceBundle bundle = BUNDLES.get(l);
-        if (bundle == null) {
-            bundle = ResourceBundle.getBundle("com.github.robtimus.maven.plugins.i18n.i18n", l);
-            BUNDLES.put(l, bundle);
-        }
-        return bundle;
+        return BUNDLES.computeIfAbsent(l, k -> ResourceBundle.getBundle("com.github.robtimus.maven.plugins.i18n.i18n", l));
     }
 
     private static String getString(Locale locale, String key) {
@@ -53,72 +48,45 @@ final class Messages {
         return locale != null ? locale : Locale.getDefault(Locale.Category.FORMAT);
     }
 
-    static final NoInputEncoding_ noInputEncoding = new NoInputEncoding_();
-
-    static final class NoInputEncoding_ {
-
-        private NoInputEncoding_() {
-            super();
-        }
-
-        String get(Object arg) {
-            return get(null, arg);
-        }
-
-        String get(Locale locale, Object arg) {
-            Locale l = nonNull(locale);
-            String s = getString(l, "noInputEncoding");
-            return String.format(l, s, arg);
-        }
+    static String noInputEncoding(Object arg) {
+        return noInputEncoding(null, arg);
     }
 
-    static final NoOutputEncoding_ noOutputEncoding = new NoOutputEncoding_();
-
-    static final class NoOutputEncoding_ {
-
-        private NoOutputEncoding_() {
-            super();
-        }
-
-        String get(Object arg) {
-            return get(null, arg);
-        }
-
-        String get(Locale locale, Object arg) {
-            Locale l = nonNull(locale);
-            String s = getString(l, "noOutputEncoding");
-            return String.format(l, s, arg);
-        }
+    static String noInputEncoding(Locale locale, Object arg) {
+        Locale l = nonNull(locale);
+        String s = getString(l, "noInputEncoding");
+        return String.format(l, s, arg);
     }
 
-    static final GeneratingClass_ generatingClass = new GeneratingClass_();
+    static String noOutputEncoding(Object arg) {
+        return noOutputEncoding(null, arg);
+    }
 
-    static final class GeneratingClass_ {
+    static String noOutputEncoding(Locale locale, Object arg) {
+        Locale l = nonNull(locale);
+        String s = getString(l, "noOutputEncoding");
+        return String.format(l, s, arg);
+    }
 
-        private GeneratingClass_() {
-            super();
-        }
+    static String generatingClass(
+        Object arg1,
+        Object arg2) {
 
-        String get(
-                Object arg1,
-                Object arg2) {
+        return generatingClass(null,
+                arg1,
+                arg2
+        );
+    }
 
-            return get(null,
-                    arg1,
-                    arg2
-            );
-        }
+    static String generatingClass(Locale locale,
+            Object arg1,
+            Object arg2) {
 
-        String get(Locale locale,
-                Object arg1,
-                Object arg2) {
-
-            Locale l = nonNull(locale);
-            String s = getString(l, "generatingClass");
-            return String.format(l, s,
-                    arg1,
-                    arg2
-            );
-        }
+        Locale l = nonNull(locale);
+        String s = getString(l, "generatingClass");
+        return String.format(l, s,
+                arg1,
+                arg2
+        );
     }
 }

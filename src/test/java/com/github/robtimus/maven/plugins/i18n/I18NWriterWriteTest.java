@@ -17,10 +17,11 @@
 
 package com.github.robtimus.maven.plugins.i18n;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -47,8 +49,8 @@ import javax.tools.JavaCompiler.CompilationTask;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -62,10 +64,12 @@ class I18NWriterWriteTest {
 
     private static I18N.Node i18nWithStringFormat;
     private static I18N.Node i18nWithMessageFormat;
+
+    @TempDir
     private static File outputDirBase;
 
     @BeforeAll
-    static void setup() throws IOException {
+    static void setup() {
         bundleWithMessageFormat = new LinkedHashMap<>();
         bundleWithMessageFormat.put("directTextNoArgs", "no args");
         bundleWithMessageFormat.put("directTextOneArgs", "one args: {0}");
@@ -106,6 +110,8 @@ class I18NWriterWriteTest {
         bundleWithMessageFormat.put("child3.child33.textNoArgs", "no args");
         bundleWithMessageFormat.put("child3.child33.textOneArgs", "one args: {0}");
         bundleWithMessageFormat.put("child3.child33.textTwoArgs", "two args: {0}, {1}");
+        bundleWithMessageFormat.put("leafWithChildren", "leaf");
+        bundleWithMessageFormat.put("leafWithChildren.child", "nested child");
         i18nWithMessageFormat = new I18N.Parser().parse(bundleWithMessageFormat);
 
         bundleWithStringFormat = new LinkedHashMap<>();
@@ -114,25 +120,6 @@ class I18NWriterWriteTest {
             bundleWithStringFormat.put(key, value);
         }
         i18nWithStringFormat = new I18N.Parser().parse(bundleWithStringFormat);
-
-        outputDirBase = File.createTempFile("i18n-maven-plugin", null);
-        outputDirBase.delete();
-        outputDirBase.mkdirs();
-    }
-
-    @AfterAll
-    static void cleanup() throws IOException {
-        cleanupFileOrDir(outputDirBase);
-    }
-
-    private static void cleanupFileOrDir(File file) throws IOException {
-        File[] children = file.listFiles();
-        if (children != null) {
-            for (File child : children) {
-                cleanupFileOrDir(child);
-            }
-        }
-        file.delete();
     }
 
     static List<Object[]> getParameters() {
@@ -239,12 +226,12 @@ class I18NWriterWriteTest {
         private void validateGeneratedClass(Class<?> cls, Object instance, String path, Set<?> remainingProperties)
                 throws ReflectiveOperationException {
 
-            // public final if cls is the root class, otherwise public static final
+            // final if cls is the root class, otherwise static final
             assertModifiers(cls.getModifiers(), cls.getDeclaringClass() != null, true);
 
             for (Field field : cls.getDeclaredFields()) {
                 if (!isSystemField(field) && !field.isSynthetic()) {
-                    // public static final if cls is the root class, otherwise public final
+                    // static final if cls is the root class, otherwise final
                     assertModifiers(field.getModifiers(), cls.getDeclaringClass() == null, true);
 
                     field.setAccessible(true);
@@ -255,45 +242,62 @@ class I18NWriterWriteTest {
                     validateGeneratedClass(field.getType(), fieldInstance, fieldPath, remainingProperties);
                 }
             }
-            Method[] methods = cls.getDeclaredMethods();
-            if (bundle.get(path) != null) {
-                // a leaf node, must have 2 get methods
-                int methodCount = 0;
-                for (Method method : methods) {
-                    if (!method.isSynthetic()) {
-                        methodCount++;
 
-                        assertEquals("get", method.getName());
-                        assertEquals(String.class, method.getReturnType());
-                        // public only
-                        assertModifiers(method.getModifiers(), false, false);
-
-                        method.setAccessible(true);
-                        validateMethod(method, instance, path);
-
-                        remainingProperties.remove(path);
-                    }
-                }
-                assertEquals(2, methodCount);
-            } else if (cls.getDeclaringClass() != null) {
-                // a non-leaf node, must have no methods
-                int methodCount = 0;
-                for (Method method : methods) {
-                    if (!method.isSynthetic()) {
-                        methodCount++;
-                    }
-                }
-                assertEquals(0, methodCount);
+            // the root class must have 3 private methods (getResourceBundle, getString, nonNull), all nested classes may have none
+            long privateMethodCount = Arrays.stream(cls.getDeclaredMethods())
+                    .filter(method -> !method.isSynthetic())
+                    .filter(method -> Modifier.isPrivate(method.getModifiers()))
+                    .count();
+            if (cls.getDeclaringClass() == null) {
+                assertEquals(3, privateMethodCount);
+            } else {
+                assertEquals(0, privateMethodCount);
             }
-            // else the root cls, don't validate its methods
+
+            Method[] methods = Arrays.stream(cls.getDeclaredMethods())
+                    .filter(method -> !method.isSynthetic())
+                    .filter(method -> !Modifier.isPrivate(method.getModifiers()))
+                    .sorted(Comparator.comparing(Method::getName).thenComparing(Method::getParameterCount))
+                    .toArray(Method[]::new);
+
+            // validate methods per pair
+            assertEquals(0, methods.length % 2);
+            String previous = "";
+            for (int i = 0; i < methods.length; i += 2) {
+                Method withoutLocale = methods[i];
+                Method withLocale = methods[i + 1];
+
+                // only two methods with the same name may exist
+                assertNotEquals(previous, withoutLocale.getName());
+                // the pair must have the same name
+                assertEquals(withoutLocale.getName(), withLocale.getName());
+                // the second must have the first's parameter types plus a leading Locale parameter
+                assertEquals(withoutLocale.getParameterCount() + 1, withLocale.getParameterCount());
+                assertEquals(Locale.class, withLocale.getParameterTypes()[0]);
+                assertArrayEquals(withoutLocale.getParameterTypes(),
+                        Arrays.copyOfRange(withLocale.getParameterTypes(), 1, withLocale.getParameterCount()));
+                // both methods must return String
+                assertEquals(String.class, withoutLocale.getReturnType());
+                assertEquals(String.class, withLocale.getReturnType());
+                // both methods must have the right modifiers - static if cls is the root class, otherwise non-static
+                assertModifiers(withoutLocale.getModifiers(), cls.getDeclaringClass() == null, false);
+                assertEquals(withoutLocale.getModifiers(), withLocale.getModifiers());
+
+                // the methods must be callable
+                String methodPath = path.isEmpty() ? withoutLocale.getName() : path + "." + withoutLocale.getName();
+                withoutLocale.setAccessible(true);
+                validateMethodWithoutLocale(withoutLocale, instance, methodPath);
+                withLocale.setAccessible(true);
+                validateMethodWithLocales(withLocale, instance, methodPath);
+
+                remainingProperties.remove(methodPath);
+            }
         }
 
         private void assertModifiers(int modifiers, boolean mustBeStatic, boolean mustBeFinal) {
             assertFalse(Modifier.isPrivate(modifiers));
             assertFalse(Modifier.isProtected(modifiers));
-            if (publicVisibility) {
-                assertTrue(Modifier.isPublic(modifiers));
-            }
+            assertEquals(publicVisibility, Modifier.isPublic(modifiers));
             assertEquals(mustBeStatic, Modifier.isStatic(modifiers));
             assertEquals(mustBeFinal, Modifier.isFinal(modifiers));
         }
@@ -307,18 +311,8 @@ class I18NWriterWriteTest {
                     && Modifier.isFinal(modifiers);
         }
 
-        private void validateMethod(Method method, Object instance, String path) throws ReflectiveOperationException {
+        private void validateMethodWithLocales(Method method, Object instance, String path) throws ReflectiveOperationException {
             Class<?>[] parameterTypes = method.getParameterTypes();
-            if (parameterTypes.length > 0 && parameterTypes[0] == Locale.class) {
-                validateMethodWithLocales(method, parameterTypes, instance, path);
-            } else {
-                validateMethodWithoutLocale(method, parameterTypes, instance, path);
-            }
-        }
-
-        private void validateMethodWithLocales(Method method, Class<?>[] parameterTypes, Object instance, String path)
-                throws ReflectiveOperationException {
-
             Object[] args = getArguments(parameterTypes.length - 1);
             for (Locale locale : LOCALES) {
                 Object[] argsWithLocale = new Object[parameterTypes.length];
@@ -331,9 +325,8 @@ class I18NWriterWriteTest {
             }
         }
 
-        private void validateMethodWithoutLocale(Method method, Class<?>[] parameterTypes, Object instance, String path)
-                throws ReflectiveOperationException {
-
+        private void validateMethodWithoutLocale(Method method, Object instance, String path) throws ReflectiveOperationException {
+            Class<?>[] parameterTypes = method.getParameterTypes();
             Object[] args = getArguments(parameterTypes.length);
             String expected = getExpectedString(path, null, args);
             String actual = (String) method.invoke(instance, args);

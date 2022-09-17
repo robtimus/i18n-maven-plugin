@@ -190,7 +190,7 @@ public class GenerateMojo extends AbstractMojo {
 
         String i18nClassName = getI18NClassName();
         try {
-            getLog().info(Messages.generatingClass.get(i18nClassName, bundleName));
+            getLog().info(Messages.generatingClass(i18nClassName, bundleName));
             writer.write(i18n, bundleName, i18nClassName, outputDirectory);
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage(), e);
@@ -221,7 +221,7 @@ public class GenerateMojo extends AbstractMojo {
     Charset getInputCharset() {
         if (inputEncoding == null) {
             Charset defaultCharset = Charset.defaultCharset();
-            getLog().warn(Messages.noInputEncoding.get(defaultCharset));
+            getLog().warn(Messages.noInputEncoding(defaultCharset));
             return defaultCharset;
         }
         return Charset.forName(inputEncoding);
@@ -230,7 +230,7 @@ public class GenerateMojo extends AbstractMojo {
     Charset getOutputCharset() {
         if (outputEncoding == null) {
             Charset defaultCharset = Charset.defaultCharset();
-            getLog().warn(Messages.noOutputEncoding.get(defaultCharset));
+            getLog().warn(Messages.noOutputEncoding(defaultCharset));
             return defaultCharset;
         }
         return Charset.forName(outputEncoding);
