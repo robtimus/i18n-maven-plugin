@@ -44,32 +44,25 @@ class MessageFormatArgumentTypesFinderTest {
     @Test
     void testMultipleArgumentsInOrder() {
         String pattern = "prefix {0} infix {1} postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(pattern);
-
-        assertEquals(2, argumentTypesList.size());
-
-        assertThat(argumentTypesList, everyItem(is(ArgumentTypes.OBJECT)));
+        testArguments(pattern, 2);
     }
 
     @Test
     void testMultipleArgumentsOutOfOrder() {
         String pattern = "prefix {1} infix {0} postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(pattern);
-
-        assertEquals(2, argumentTypesList.size());
-
-        assertThat(argumentTypesList, everyItem(is(ArgumentTypes.OBJECT)));
+        testArguments(pattern, 2);
     }
 
     @Test
     void testMultipleArgumentsWithGap() {
         String pattern = "prefix {5} infix {2} postfix";
+        testArguments(pattern, 6);
+    }
 
+    private void testArguments(String pattern, int expectedSize) {
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(pattern);
 
-        assertEquals(6, argumentTypesList.size());
+        assertEquals(expectedSize, argumentTypesList.size());
 
         assertThat(argumentTypesList, everyItem(is(ArgumentTypes.OBJECT)));
     }

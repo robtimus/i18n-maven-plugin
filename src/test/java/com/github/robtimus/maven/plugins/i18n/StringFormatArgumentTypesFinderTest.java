@@ -27,6 +27,8 @@ import java.util.Date;
 import java.util.List;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import com.github.robtimus.maven.plugins.i18n.I18N.ArgumentTypesFinder;
 import com.github.robtimus.maven.plugins.i18n.I18N.ArgumentTypesFinder.ArgumentTypes;
 
@@ -35,9 +37,10 @@ class StringFormatArgumentTypesFinderTest {
 
     private final ArgumentTypesFinder argumentTypesFinder = new StringFormatArgumentTypesFinder();
 
-    @Test
-    void testBooleanLowerCase() {
-        String format = "prefix %b postfix";
+    @ParameterizedTest(name = "{0}")
+    @ValueSource(strings = { "%b", "%B" })
+    void testBoolean(String conversion) {
+        String format = String.format("prefix %s postfix", conversion);
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
 
@@ -47,21 +50,10 @@ class StringFormatArgumentTypesFinderTest {
         assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(boolean.class, Boolean.class));
     }
 
-    @Test
-    void testBooleanUpperCase() {
-        String format = "prefix %B postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(boolean.class, Boolean.class));
-    }
-
-    @Test
-    void testHashLowerCase() {
-        String format = "prefix %h postfix";
+    @ParameterizedTest(name = "{0}")
+    @ValueSource(strings = { "%h", "%H" })
+    void testHash(String conversion) {
+        String format = String.format("prefix %s postfix", conversion);
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
 
@@ -71,9 +63,10 @@ class StringFormatArgumentTypesFinderTest {
         assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(Object.class));
     }
 
-    @Test
-    void testHashUpperCase() {
-        String format = "prefix %H postfix";
+    @ParameterizedTest(name = "{0}")
+    @ValueSource(strings = { "%s", "%S" })
+    void testObject(String conversion) {
+        String format = String.format("prefix %s postfix", conversion);
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
 
@@ -83,33 +76,10 @@ class StringFormatArgumentTypesFinderTest {
         assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(Object.class));
     }
 
-    @Test
-    void testObjectLowerCase() {
-        String format = "prefix %s postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(Object.class));
-    }
-
-    @Test
-    void testObjectUpperCase() {
-        String format = "prefix %s postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(Object.class));
-    }
-
-    @Test
-    void testCharLowerCase() {
-        String format = "prefix %c postfix";
+    @ParameterizedTest(name = "{0}")
+    @ValueSource(strings = { "%c", "%C" })
+    void testChar(String conversion) {
+        String format = String.format("prefix %s postfix", conversion);
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
 
@@ -119,21 +89,11 @@ class StringFormatArgumentTypesFinderTest {
         assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(char.class, Character.class));
     }
 
-    @Test
-    void testCharUpperCase() {
-        String format = "prefix %C postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(char.class, Character.class));
-    }
-
-    @Test
-    void testDecimalInteger() {
-        String format = "prefix %d postfix";
+    @ParameterizedTest(name = "{0}")
+    // decimal, octal, 2x hexadecimal
+    @ValueSource(strings = { "%d", "%o", "%x", "%X" })
+    void testInteger(String conversion) {
+        String format = String.format("prefix %s postfix", conversion);
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
 
@@ -144,48 +104,11 @@ class StringFormatArgumentTypesFinderTest {
                 int.class, Integer.class, long.class, Long.class, BigInteger.class));
     }
 
-    @Test
-    void testOctalInteger() {
-        String format = "prefix %o postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
-                int.class, Integer.class, long.class, Long.class, BigInteger.class));
-    }
-
-    @Test
-    void testHexadecimalIntegerLowerCase() {
-        String format = "prefix %x postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
-                int.class, Integer.class, long.class, Long.class, BigInteger.class));
-    }
-
-    @Test
-    void testHexadecimalIntegerUpperCase() {
-        String format = "prefix %X postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(byte.class, Byte.class, short.class, Short.class,
-                int.class, Integer.class, long.class, Long.class, BigInteger.class));
-    }
-
-    @Test
-    void testComputerizedScientificLowerCase() {
-        String format = "prefix %e postfix";
+    @ParameterizedTest(name = "{0}")
+    // decimal, 2x computerized scientific, 2x general scientific
+    @ValueSource(strings = { "%f", "%e", "%E", "%g", "%G" })
+    void testDecimal(String conversion) {
+        String format = String.format("prefix %s postfix", conversion);
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
 
@@ -196,61 +119,10 @@ class StringFormatArgumentTypesFinderTest {
                 Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
     }
 
-    @Test
-    void testComputerizedScientificUpperCase() {
-        String format = "prefix %E postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(),
-                Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
-    }
-
-    @Test
-    void testGeneralScientificLowerCase() {
-        String format = "prefix %g postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(),
-                Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
-    }
-
-    @Test
-    void testGeneralScientificUpperCase() {
-        String format = "prefix %G postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(),
-                Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
-    }
-
-    @Test
-    void testDecimal() {
-        String format = "prefix %f postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(),
-                Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class, BigDecimal.class));
-    }
-
-    @Test
-    void testHexadecimalExponentialLowerCase() {
-        String format = "prefix %a postfix";
+    @ParameterizedTest(name = "{0}")
+    @ValueSource(strings = { "%a", "%A" })
+    void testHexadecimalExponential(String conversion) {
+        String format = String.format("prefix %s postfix", conversion);
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
 
@@ -260,33 +132,10 @@ class StringFormatArgumentTypesFinderTest {
         assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class));
     }
 
-    @Test
-    void testHexadecimalExponentialUpperCase() {
-        String format = "prefix %A postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(float.class, Float.class, double.class, Double.class));
-    }
-
-    @Test
-    void testDateTimeLowerCase() {
-        String format = "prefix %tc postfix";
-
-        List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
-
-        assertEquals(1, argumentTypesList.size());
-
-        ArgumentTypes argumentTypes = argumentTypesList.get(0);
-        assertThat(argumentTypes.getTypes(), Matchers.<Class<?>>containsInAnyOrder(long.class, Long.class, Date.class, Calendar.class));
-    }
-
-    @Test
-    void testDateTimeUpperCase() {
-        String format = "prefix %tc postfix";
+    @ParameterizedTest(name = "{0}")
+    @ValueSource(strings = { "%tc", "%tc" })
+    void testDateTime(String conversion) {
+        String format = String.format("prefix %s postfix", conversion);
 
         List<ArgumentTypes> argumentTypesList = argumentTypesFinder.findArgumentTypes(format);
 
