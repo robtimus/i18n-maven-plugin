@@ -25,7 +25,6 @@ package com.github.robtimus.maven.plugins.i18n;
 @SuppressWarnings("javadoc")
 public enum Scope {
 
-    // Suppress Sonar warnings, as this names are what's used in Maven configuration
-    compile, // NOSONAR
-    test, // NOSONAR
+    compile,
+    test,
 }
