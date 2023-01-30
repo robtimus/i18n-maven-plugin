@@ -47,7 +47,7 @@ import org.apache.maven.project.MavenProject;
 public class GenerateMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "${project}", readonly = true)
-    private MavenProject project;
+    MavenProject project;
 
     /**
      * The bundle name to generate an I18N class for. The matching bundle file will be resolved relative to the configured source directory.
@@ -80,7 +80,7 @@ public class GenerateMojo extends AbstractMojo {
      * @since 1.0
      */
     @Parameter(property = "i18n.outputDirectory", defaultValue = "${project.build.directory}/generated-sources/resource-bundles", required = true)
-    private File outputDirectory;
+    File outputDirectory;
 
     /**
      * The scope of the project source root, {@code compile} or {@code test}.
@@ -88,7 +88,7 @@ public class GenerateMojo extends AbstractMojo {
      * @since 1.0
      */
     @Parameter(property = "i18n.scope", defaultValue = "compile")
-    private Scope scope;
+    Scope scope;
 
     /**
      * The input encoding.
@@ -306,7 +306,7 @@ public class GenerateMojo extends AbstractMojo {
         return Character.toUpperCase(s.charAt(0)) + s.substring(1);
     }
 
-    private void appendSourcePath() {
+    void appendSourcePath() {
         List<String> sourceRoots = scope == Scope.compile ? project.getCompileSourceRoots() : project.getTestCompileSourceRoots();
         String newSourcePath = outputDirectory.getPath();
         String newAbsoluteSourcePath = outputDirectory.getAbsolutePath();
