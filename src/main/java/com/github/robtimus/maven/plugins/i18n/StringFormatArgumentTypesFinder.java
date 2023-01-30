@@ -31,7 +31,7 @@ import com.github.robtimus.maven.plugins.i18n.I18N.ArgumentTypesFinder;
 final class StringFormatArgumentTypesFinder implements ArgumentTypesFinder {
 
     // %[argument_index$][flags][width][.precision][t]conversion
-    private static final String FORMAT_SPECIFIER = "%(\\d+\\$)?([-#+ 0,(\\<]*)?(\\d+)?(\\.\\d+)?([tT])?([a-zA-Z%])"; //$NON-NLS-1$
+    private static final String FORMAT_SPECIFIER = "%(\\d+\\$)?([-#+ 0,(\\<]+)?(\\d+)?(\\.\\d+)?([tT])?([a-zA-Z%])"; //$NON-NLS-1$
     private static final Pattern FORMAT_SPECIFIER_PATTERN = Pattern.compile(FORMAT_SPECIFIER);
 
     @Override
