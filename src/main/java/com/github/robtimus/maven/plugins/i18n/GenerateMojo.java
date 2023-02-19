@@ -114,7 +114,8 @@ public class GenerateMojo extends AbstractMojo {
      *       <li><a href="https://opensource.org/licenses/Apache-2.0">Apache-2.0</a>: the Apache License 2.0</li>
      *       <li><a href="https://opensource.org/licenses/BSD-2-Clause">BSD-2-Clause</a>: the 2-Clause BSD License / FreeBSD License /
      *           Simplified BSD License</li>
-     *       <li><a href="https://opensource.org/licenses/EPL-1.0">EPL-1.0</a>: the Eclipse Public License</li>
+     *       <li><a href="https://opensource.org/licenses/EPL-1.0">EPL-1.0</a>: the Eclipse Public License 1.0</li>
+     *       <li><a href="https://opensource.org/licenses/EPL-2.0">EPL-2.0</a>: the Eclipse Public License 2.0</li>
      *       <li><a href="https://opensource.org/licenses/GPL-2.0">GPL-2.0</a>: the GNU General Public License version 2</li>
      *       <li><a href="https://opensource.org/licenses/GPL-3.0">GPL-3.0</a>: the GNU General Public License version 3</li>
      *       <li><a href="https://opensource.org/licenses/LGPL-2.0">LGPL-2.0</a>: the GNU Library General Public License version 2</li>

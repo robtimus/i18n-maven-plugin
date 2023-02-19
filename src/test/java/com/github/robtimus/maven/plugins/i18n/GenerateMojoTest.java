@@ -174,6 +174,11 @@ class GenerateMojoTest {
         }
 
         @Test
+        void testEPL20() throws MojoExecutionException, IOException {
+            testPredefined("EPL-2.0");
+        }
+
+        @Test
         void testGPL20() throws MojoExecutionException, IOException {
             testPredefined("GPL-2.0");
         }
