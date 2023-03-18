@@ -137,7 +137,8 @@ class I18NWriterWriteTest {
             for (boolean useMessageFormat : booleans) {
                 for (String licenseText : licenseTexts) {
                     for (Set<String> suppressWarnings : suppressWarningsSets) {
-                        Object[] params = { ++id, publicVisibility, useMessageFormat, licenseText, suppressWarnings, };
+                        id++;
+                        Object[] params = { id, publicVisibility, useMessageFormat, licenseText, suppressWarnings, };
                         parameters.add(params);
                     }
                 }

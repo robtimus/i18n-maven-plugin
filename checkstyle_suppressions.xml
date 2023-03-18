@@ -3,7 +3,7 @@
 <!DOCTYPE suppressions PUBLIC "-//Checkstyle//DTD SuppressionFilter Configuration 1.1//EN" "https://checkstyle.org/dtds/suppressions_1_1.dtd">
 
 <suppressions>
-    <suppress files=".*[\\/]Messages\.java" checks=".*"/>
-    <suppress files=".*[\\/]Scope\.java" checks="JavadocVariable"/>
-    <suppress files=".*\.vtl" checks=".*"/>
+  <suppress files=".*[\\/]Messages\.java" checks=".*"/>
+  <suppress files=".*[\\/]Scope\.java" checks="JavadocVariable"/>
+  <suppress files=".*\.vtl" checks=".*"/>
 </suppressions>

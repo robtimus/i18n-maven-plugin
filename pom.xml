@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.github.robtimus</groupId>
     <artifactId>robtimus-parent</artifactId>
-    <version>1.8</version>
+    <version>1.9</version>
     <relativePath />
   </parent>
 
@@ -65,9 +65,9 @@
     <version.commons-io>2.11.0</version.commons-io>
     <version.freemarker>2.3.31</version.freemarker>
     <version.maven>3.8.2</version.maven>
-    <version.maven-annotations>3.7.1</version.maven-annotations>
+    <version.maven-annotations>3.8.1</version.maven-annotations>
 
-    <version.plugin.maven>3.7.1</version.plugin.maven>
+    <version.plugin.maven>3.8.1</version.plugin.maven>
   </properties>
 
   <dependencies>
@@ -130,9 +130,7 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
           <configuration>
-            <detectJavaApiLink>false</detectJavaApiLink>
             <links>
-              <link>https://docs.oracle.com/javase/8/docs/api/</link>
             </links>
           </configuration>
         </plugin>
@@ -185,6 +183,9 @@
             <goals>
               <goal>helpmojo</goal>
             </goals>
+            <configuration>
+              <helpPackageName>com.github.robtimus.maven.plugins.i18n</helpPackageName>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -248,7 +249,7 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-plugin-plugin</artifactId>
+        <artifactId>maven-plugin-report-plugin</artifactId>
         <version>${version.plugin.maven}</version>
       </plugin>
     </plugins>
