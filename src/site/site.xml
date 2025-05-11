@@ -15,9 +15,11 @@
   limitations under the License.
 -->
 
-<project name="I18N Maven Plugin"
-  xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 https://maven.apache.org/xsd/decoration-1.8.0.xsd">
+<site name="I18N Maven Plugin"
+  xmlns="http://maven.apache.org/SITE/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 https://maven.apache.org/xsd/site-2.0.0.xsd">
+
+  <bannerLeft name="I18N Maven Plugin" />
 
   <body>
     <menu name="Overview">
@@ -34,4 +36,4 @@
       <item name="Use MessageFormat" href="examples/use-message-format.html" />
     </menu>
   </body>
-</project>
+</site>

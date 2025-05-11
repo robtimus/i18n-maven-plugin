@@ -7,29 +7,31 @@ $h$h Specify a custom class name
 
 By default, the class name will be based on the I18N bundle file name. Specify a custom class name by setting the fully qualified class name in the `className` configuration element.
 
-    <project>
+```xml
+<project>
+  ...
+  <build>
+    <plugins>
       ...
-      <build>
-        <plugins>
-          ...
-          <plugin>
-            <groupId>com.github.robtimus</groupId>
-            <artifactId>i18n-maven-plugin</artifactId>
-            <version>${project.version}</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>generate</goal>
-                </goals>
-                <configuration>
-                  <bundleName>com.foo.bar.i18n</bundleName>
-                  <className>com.foo.bar.Messages</className>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          ...
-        </plugins>
-      </build>
+      <plugin>
+        <groupId>com.github.robtimus</groupId>
+        <artifactId>i18n-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <bundleName>com.foo.bar.i18n</bundleName>
+              <className>com.foo.bar.Messages</className>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       ...
-    </project>
+    </plugins>
+  </build>
+  ...
+</project>
+```

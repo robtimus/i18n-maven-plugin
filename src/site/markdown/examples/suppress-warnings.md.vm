@@ -7,29 +7,31 @@ $h$h Suppress warnings
 
 Specify the warnings to [supress](https://docs.oracle.com/javase/8/docs/api/java/lang/SuppressWarnings.html) by setting these in the `suppressWarnings` configuration element. This can be done using a comma separated list or as nested `suppressWarning` configuration elements.
 
-    <project>
+```xml
+<project>
+  ...
+  <build>
+    <plugins>
       ...
-      <build>
-        <plugins>
-          ...
-          <plugin>
-            <groupId>com.github.robtimus</groupId>
-            <artifactId>i18n-maven-plugin</artifactId>
-            <version>${project.version}</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>generate</goal>
-                </goals>
-                <configuration>
-                  <bundleName>com.foo.bar.i18n</bundleName>
-                  <suppressWarnings>javadoc,nls</suppressWarnings>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          ...
-        </plugins>
-      </build>
+      <plugin>
+        <groupId>com.github.robtimus</groupId>
+        <artifactId>i18n-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <bundleName>com.foo.bar.i18n</bundleName>
+              <suppressWarnings>javadoc,nls</suppressWarnings>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       ...
-    </project>
+    </plugins>
+  </build>
+  ...
+</project>
+```
