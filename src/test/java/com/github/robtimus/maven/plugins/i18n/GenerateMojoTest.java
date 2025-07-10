@@ -22,9 +22,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
@@ -282,10 +285,15 @@ class GenerateMojoTest {
             List<String> roots = new ArrayList<>();
 
             when(mojo.project.getCompileSourceRoots()).thenReturn(roots);
+            doAnswer(i -> roots.add(i.getArgument(0))).when(mojo.project).addCompileSourceRoot(anyString());
 
             mojo.appendSourcePath();
 
             assertEquals(Arrays.asList(mojo.outputDirectory.getAbsolutePath()), roots);
+
+            verify(mojo.project).getCompileSourceRoots();
+            verify(mojo.project).addCompileSourceRoot(mojo.outputDirectory.getAbsolutePath());
+            verifyNoMoreInteractions(mojo.project);
         }
 
         @Test
@@ -299,10 +307,14 @@ class GenerateMojoTest {
             roots.add(mojo.outputDirectory.getPath());
 
             when(mojo.project.getCompileSourceRoots()).thenReturn(roots);
+            doAnswer(i -> roots.add(i.getArgument(0))).when(mojo.project).addCompileSourceRoot(anyString());
 
             mojo.appendSourcePath();
 
             assertEquals(Arrays.asList(mojo.outputDirectory.getPath()), roots);
+
+            verify(mojo.project).getCompileSourceRoots();
+            verifyNoMoreInteractions(mojo.project);
         }
 
         @Test
@@ -314,12 +326,16 @@ class GenerateMojoTest {
 
             List<String> roots = new ArrayList<>();
             roots.add(mojo.outputDirectory.getAbsolutePath());
+            doAnswer(i -> roots.add(i.getArgument(0))).when(mojo.project).addCompileSourceRoot(anyString());
 
             when(mojo.project.getCompileSourceRoots()).thenReturn(roots);
 
             mojo.appendSourcePath();
 
             assertEquals(Arrays.asList(mojo.outputDirectory.getAbsolutePath()), roots);
+
+            verify(mojo.project).getCompileSourceRoots();
+            verifyNoMoreInteractions(mojo.project);
         }
 
         @Test
@@ -332,10 +348,15 @@ class GenerateMojoTest {
             List<String> roots = new ArrayList<>();
 
             when(mojo.project.getTestCompileSourceRoots()).thenReturn(roots);
+            doAnswer(i -> roots.add(i.getArgument(0))).when(mojo.project).addTestCompileSourceRoot(anyString());
 
             mojo.appendSourcePath();
 
             assertEquals(Arrays.asList(mojo.outputDirectory.getAbsolutePath()), roots);
+
+            verify(mojo.project).getTestCompileSourceRoots();
+            verify(mojo.project).addTestCompileSourceRoot(mojo.outputDirectory.getAbsolutePath());
+            verifyNoMoreInteractions(mojo.project);
         }
 
         @Test
@@ -349,10 +370,14 @@ class GenerateMojoTest {
             roots.add(mojo.outputDirectory.getPath());
 
             when(mojo.project.getTestCompileSourceRoots()).thenReturn(roots);
+            doAnswer(i -> roots.add(i.getArgument(0))).when(mojo.project).addTestCompileSourceRoot(anyString());
 
             mojo.appendSourcePath();
 
             assertEquals(Arrays.asList(mojo.outputDirectory.getPath()), roots);
+
+            verify(mojo.project).getTestCompileSourceRoots();
+            verifyNoMoreInteractions(mojo.project);
         }
 
         @Test
@@ -366,10 +391,14 @@ class GenerateMojoTest {
             roots.add(mojo.outputDirectory.getAbsolutePath());
 
             when(mojo.project.getTestCompileSourceRoots()).thenReturn(roots);
+            doAnswer(i -> roots.add(i.getArgument(0))).when(mojo.project).addTestCompileSourceRoot(anyString());
 
             mojo.appendSourcePath();
 
             assertEquals(Arrays.asList(mojo.outputDirectory.getAbsolutePath()), roots);
+
+            verify(mojo.project).getTestCompileSourceRoots();
+            verifyNoMoreInteractions(mojo.project);
         }
     }
 

@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -308,12 +309,19 @@ public class GenerateMojo extends AbstractMojo {
     }
 
     void appendSourcePath() {
-        List<String> sourceRoots = scope == Scope.compile ? project.getCompileSourceRoots() : project.getTestCompileSourceRoots();
+        if (scope == Scope.compile) {
+            appendSourcePath(project.getCompileSourceRoots(), project::addCompileSourceRoot);
+        } else {
+            appendSourcePath(project.getTestCompileSourceRoots(), project::addTestCompileSourceRoot);
+        }
+    }
+
+    private void appendSourcePath(List<String> sourceRoots, Consumer<String> addSourceRoot) {
         String newSourcePath = outputDirectory.getPath();
         String newAbsoluteSourcePath = outputDirectory.getAbsolutePath();
 
         if (!sourceRoots.contains(newSourcePath) && !sourceRoots.contains(newAbsoluteSourcePath)) {
-            sourceRoots.add(newAbsoluteSourcePath);
+            addSourceRoot.accept(newAbsoluteSourcePath);
         }
     }
 }
