@@ -57,7 +57,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 @SuppressWarnings("nls")
 class I18NWriterWriteTest {
 
-    private static final Collection<Locale> LOCALES = Collections.unmodifiableCollection(Arrays.asList(Locale.ENGLISH, Locale.GERMAN, Locale.FRENCH));
+    private static final Collection<Locale> LOCALES = List.of(Locale.ENGLISH, Locale.GERMAN, Locale.FRENCH);
 
     private static Map<String, String> bundleWithStringFormat;
     private static Map<String, String> bundleWithMessageFormat;
