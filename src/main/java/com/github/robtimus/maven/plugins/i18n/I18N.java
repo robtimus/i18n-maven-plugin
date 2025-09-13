@@ -289,7 +289,7 @@ final class I18N {
     public static final class FTLHelper {
 
         @SuppressWarnings("nls")
-        static final Collection<String> KEYWORDS = Collections.unmodifiableCollection(Arrays.asList(
+        static final Collection<String> KEYWORDS = Set.of(
                 "abstract", "assert",
                 "boolean", "break", "byte",
                 "case", "catch", "char", "class", "const", "continue",
@@ -306,11 +306,11 @@ final class I18N {
                 "this", "throw", "throws", "transient", "try",
                 "void", "volatile",
                 "while"
-        ));
+        );
         @SuppressWarnings("nls")
-        static final Collection<String> LITERALS = Collections.unmodifiableCollection(Arrays.asList(
+        static final Collection<String> LITERALS = Set.of(
                 "true", "false", "null"
-        ));
+        );
 
         public String varName(Node node) {
             String name = node.name();
@@ -351,7 +351,7 @@ final class I18N {
         }
 
         public List<String> splitLines(String text) {
-            return text == null ? Collections.<String>emptyList() : Arrays.asList(text.split("\r?\n")); //$NON-NLS-1$
+            return text == null ? Collections.emptyList() : Arrays.asList(text.split("\r?\n")); //$NON-NLS-1$
         }
     }
 }

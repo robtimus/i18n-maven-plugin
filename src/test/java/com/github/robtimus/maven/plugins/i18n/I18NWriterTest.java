@@ -120,7 +120,7 @@ class I18NWriterTest {
     }
 
     private I18N.Writer createWriter(License license) {
-        return new I18N.Writer(StandardCharsets.UTF_8, true, license, false, Collections.<String>emptySet());
+        return new I18N.Writer(StandardCharsets.UTF_8, true, license, false, Collections.emptySet());
     }
 
     private String readResource(String resource) throws IOException {
