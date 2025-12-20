@@ -3,8 +3,7 @@
 <#elseif 1 < suppressWarnings?size>
 @SuppressWarnings({
     <#list suppressWarnings as w>
-        <#assign postfix = (w?index == suppressWarnings?size - 1)?then('', ',')>
-    "${w?trim}"${postfix}
+    "${w?trim}"<#if !w?is_last>,</#if>
     </#list>
 })
 </#if>

@@ -197,11 +197,9 @@ class I18NWriterWriteTest {
         }
 
         private void compileGeneratedClass() throws IOException {
-
             JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
             try (StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, StandardCharsets.UTF_8)) {
-
                 Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjects(new File(outputDir, "test/I18N.java"));
 
                 CompilationTask compilationTask = compiler.getTask(null, fileManager, null, null, null, compilationUnits);

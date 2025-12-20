@@ -37,15 +37,13 @@ ${indent}}
 ${indent}${visibility}${modifiers}String ${node.name()}(
             <#list argumentTypes as argType>
                 <#assign argIndex = useMessageFormat?then(argType?index, argType?index + 1)>
-                <#assign postfix = (argType?index == argumentTypes?size - 1)?then(') {', ',')>
-${indent}    Object arg${argIndex}${postfix}
+${indent}    Object arg${argIndex}<#if argType?is_last>) {<#else>,</#if>
             </#list>
 
 ${indent}    return ${node.name()}(null,
             <#list argumentTypes as argType>
                 <#assign argIndex = useMessageFormat?then(argType?index, argType?index + 1)>
-                <#assign postfix = (argType?index == argumentTypes?size - 1)?then('', ',')>
-${indent}            arg${argIndex}${postfix}
+${indent}            arg${argIndex}<#if !argType?is_last>,</#if>
             </#list>
 ${indent}    );
 ${indent}}
@@ -53,8 +51,7 @@ ${indent}}
 ${indent}${visibility}${modifiers}String ${node.name()}(Locale locale,
             <#list argumentTypes as argType>
                 <#assign argIndex = useMessageFormat?then(argType?index, argType?index + 1)>
-                <#assign postfix = (argType?index == argumentTypes?size - 1)?then(') {', ',')>
-${indent}        Object arg${argIndex}${postfix}
+${indent}        Object arg${argIndex}<#if argType?is_last>) {<#else>,</#if>
             </#list>
 
 ${indent}    Locale l = nonNull(locale);
@@ -71,8 +68,7 @@ ${indent}    return new MessageFormat(s, l).format(args);
 ${indent}    return String.format(l, s,
                 <#list argumentTypes as argType>
                     <#assign argIndex = argType?index + 1>
-                    <#assign postfix = (argType?index == argumentTypes?size - 1)?then('', ',')>
-${indent}            arg${argIndex}${postfix}
+${indent}            arg${argIndex}<#if !argType?is_last>,</#if>
                 </#list>
 ${indent}    );
            </#if>
@@ -106,7 +102,6 @@ ${visibility}final class ${simpleClassName} {
     private static final Map<Locale, ResourceBundle> BUNDLES = new ConcurrentHashMap<>();
 
     private ${simpleClassName}() {
-        throw new IllegalStateException("cannot create instances of " + getClass().getName());
     }
 
     private static ResourceBundle getResourceBundle(Locale locale) {

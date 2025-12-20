@@ -31,7 +31,6 @@ final class Messages {
     private static final Map<Locale, ResourceBundle> BUNDLES = new ConcurrentHashMap<>();
 
     private Messages() {
-        throw new IllegalStateException("cannot create instances of " + getClass().getName());
     }
 
     private static ResourceBundle getResourceBundle(Locale locale) {
