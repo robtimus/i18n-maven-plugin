@@ -3,7 +3,6 @@
 [![Build Status](https://github.com/robtimus/i18n-maven-plugin/actions/workflows/build.yml/badge.svg)](https://github.com/robtimus/i18n-maven-plugin/actions/workflows/build.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.robtimus%3Ai18n-maven-plugin&metric=alert_status)](https://sonarcloud.io/summary/overall?id=com.github.robtimus%3Ai18n-maven-plugin)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.github.robtimus%3Ai18n-maven-plugin&metric=coverage)](https://sonarcloud.io/summary/overall?id=com.github.robtimus%3Ai18n-maven-plugin)
-[![Known Vulnerabilities](https://snyk.io/test/github/robtimus/i18n-maven-plugin/badge.svg)](https://snyk.io/test/github/robtimus/i18n-maven-plugin)
 
 The I18N Maven Plugin allows you to generate I18N classes from I18N resource files. Such I18N classes provides easy and safe access to the keys in their backing I18N resource files, without risking any [MissingResourceExceptions](https://docs.oracle.com/javase/8/docs/api/java/util/MissingResourceException.html) or getting the number of place holders wrong.
 
