@@ -22,10 +22,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.time.Year;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -228,10 +228,11 @@ final class I18N {
                     ;
         }
 
+        @SuppressWarnings("squid:S8688")
         String getLicenseCopyrightYear() {
             assert license != null;
 
-            return license.getCopyrightYear() != null ? license.getCopyrightYear() : String.format("%tY", new Date()); //$NON-NLS-1$
+            return license.getCopyrightYear() != null ? license.getCopyrightYear() : Year.now().toString();
         }
 
         String getLicenseCopyrightHolder() {
@@ -320,6 +321,8 @@ final class I18N {
             return name;
         }
 
+        // Don't use StringBuilder, as the loop condition would convert it to String anyway
+        @SuppressWarnings("squid:S1643")
         public String className(Node node, Collection<String> classNames) {
             String className = className(node);
             while (classNames.contains(className)) {
