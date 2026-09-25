@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"com.github.robtimus.maven.plugins.i18n","l":"GenerateMojo"},{"p":"com.github.robtimus.maven.plugins.i18n","l":"Scope"}]
